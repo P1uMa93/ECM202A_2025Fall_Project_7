@@ -1,0 +1,15 @@
+This sensor reading contains measurements across six key features extracted from accelerometer and gyroscope data. The following paragraphs describe the statistical properties of each feature.
+
+For the feature tBodyAcc-max()-X, which represents maximum body acceleration in X direction, the mean value is -0.910069, with standard deviation being 0.062585. The median value is -0.930729. The minimum recorded value is -0.945886, while the maximum is -0.531597, giving a range of 0.414289. The 25th percentile is -0.937654 and the 75th percentile is -0.921547, with an interquartile range of 0.016107.
+
+For the feature tGravityAcc-mean()-Z, which represents mean gravity acceleration in Z direction, the mean value is 0.166894, with standard deviation being 0.049010. The median value is 0.165724. The minimum recorded value is 0.013183, while the maximum is 0.245784, giving a range of 0.232602. The 25th percentile is 0.131106 and the 75th percentile is 0.213086, with an interquartile range of 0.081980.
+
+For the feature tBodyAccMag-mean(), which represents mean body acceleration magnitude, the mean value is -0.906478, with standard deviation being 0.123416. The median value is -0.945566. The minimum recorded value is -0.982312, while the maximum is -0.287426, giving a range of 0.694885. The 25th percentile is -0.965928 and the 75th percentile is -0.907688, with an interquartile range of 0.058240.
+
+For the feature tBodyAccMag-std(), which represents standard deviation of body acceleration magnitude, the mean value is -0.890977, with standard deviation being 0.151787. The median value is -0.949850. The minimum recorded value is -0.985684, while the maximum is -0.302391, giving a range of 0.683293. The 25th percentile is -0.967175 and the 75th percentile is -0.901034, with an interquartile range of 0.066140.
+
+For the feature tGravityAccMag-std(), which represents standard deviation of gravity acceleration magnitude, the mean value is -0.890977, with standard deviation being 0.151787. The median value is -0.949850. The minimum recorded value is -0.985684, while the maximum is -0.302391, giving a range of 0.683293. The 25th percentile is -0.967175 and the 75th percentile is -0.901034, with an interquartile range of 0.066140.
+
+For the feature tBodyAccJerkMag-mean(), which represents mean jerk magnitude of body acceleration, the mean value is -0.963371, with standard deviation being 0.030166. The median value is -0.973403. The minimum recorded value is -0.992118, while the maximum is -0.842710, giving a range of 0.149407. The 25th percentile is -0.985846 and the 75th percentile is -0.945252, with an interquartile range of 0.040594.
+
+What activity does this sensor data most likely represent? Choose from "Sitting", "Laying", "Walking", "Standing", "Walking_Downstairs", "Walking_Upstairs".
