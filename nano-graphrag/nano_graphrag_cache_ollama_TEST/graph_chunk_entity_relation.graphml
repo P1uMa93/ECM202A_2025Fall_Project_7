@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d7" for="edge" attr.name="order" attr.type="long" />
+  <key id="d6" for="edge" attr.name="source_id" attr.type="string" />
+  <key id="d5" for="edge" attr.name="description" attr.type="string" />
+  <key id="d4" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d3" for="node" attr.name="clusters" attr.type="string" />
+  <key id="d2" for="node" attr.name="source_id" attr.type="string" />
+  <key id="d1" for="node" attr.name="description" attr.type="string" />
+  <key id="d0" for="node" attr.name="entity_type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="&quot;LAYING&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"Laying activity is a static posture characterized by low body acceleration (tBodyAcc-max()-X mean ≈ -0.91, tBodyAccMag-mean ≈ -0.84) and a relatively high mean gravity Z value (≈ 0.45), indicating a more horizontal orientation."&lt;SEP&gt;"Laying is an activity (posture) identified by sensor feature statistics such as tBodyAccJerkMag‑mean() where the reported values (e.g., percentile ‑0.779193, mean ‑0.954396) are interpreted as indicating that the subject is in a laying position."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb&lt;SEP&gt;chunk-0d652777985c56739c1bd98e6b471974</data>
+    </node>
+    <node id="&quot;WALKING&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A general walking activity on level ground, identified by sensor measurements indicating continuous forward movement without elevation change."&lt;SEP&gt;"Walking activity denotes general locomotion with moderate body acceleration; it is identified by a positive movement indicator in tBodyAccMag-mean and low or negative tGravityAcc-mean‑Z, reflecting an upright posture."&lt;SEP&gt;"Walking is identified as the activity performed by the subject, inferred from sensor feature statistics such as mean body acceleration magnitude, standard deviation, and jerk magnitude indicating locomotion."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3&lt;SEP&gt;chunk-b30d8a419a96dada9667a414c3d435fd</data>
+    </node>
+    <node id="&quot;WALKING UPSTAIRS&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"An activity event identified by sensor measurements (e.g., tBodyAcc-max()-X, tGravityAcc-mean()-Z) that show the subject is ascending a flight of stairs."&lt;SEP&gt;"Walking Upstairs is a locomotion activity similar to Walking but with slightly higher maximum body acceleration in the X direction and marginally larger mean body‑acceleration magnitude, indicating a modestly greater effort than level walking."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;WALKING DOWNSTAIRS&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"An activity event identified by sensor measurements (e.g., tBodyAccJerkMag-mean()) that show the subject is descending a flight of stairs."&lt;SEP&gt;"Walking Downstairs is an activity characterized by increased body acceleration in the X direction and varied gravity acceleration in the Z direction, as reflected in the sensor feature statistics."&lt;SEP&gt;"Walking Downstairs is the most dynamic locomotion activity, showing the highest maximum body acceleration in X (tBodyAcc-max()-X) and the greatest mean body‑acceleration magnitude (tBodyAccMag-mean), distinguishing it from other walking types."</data>
+      <data key="d2">chunk-b7881ffcf76ffb17afa6b5f2557e8e0e&lt;SEP&gt;chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;STANDING&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"Standing is a static, fully upright posture characterized by low or negative tGravityAcc-mean‑Z values (around 0 or negative) and minimal body‑acceleration magnitudes, indicating no movement."&lt;SEP&gt;"Standing is an activity (posture) identified by sensor feature statistics such as tBodyAcc‑max()‑X, tGravityAcc‑mean()‑Z, and tBodyAccMag‑mean() where the reported values (e.g., mean ‑0.939018 for X‑axis acceleration, mean 0.016884 for Z‑axis gravity) are interpreted as indicating that the subject is standing."&lt;SEP&gt;"Standing is an activity where the subject remains stationary, indicated by sensor readings with near‑zero body acceleration magnitude and negative gravity acceleration values."</data>
+      <data key="d2">chunk-b7881ffcf76ffb17afa6b5f2557e8e0e&lt;SEP&gt;chunk-3f2cb4ae19e0458b81fae35a57c6aafb&lt;SEP&gt;chunk-0d652777985c56739c1bd98e6b471974</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;SITTING&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"Sitting is a static posture with intermediate tGravityAcc-mean‑Z values (between the low values of Standing and the higher values of Laying), reflecting a semi‑upright orientation and low body acceleration."&lt;SEP&gt;"Sitting is an activity (posture) identified by a different set of sensor feature statistics—including tBodyAcc‑max()‑X, tGravityAcc‑mean()‑Z, tBodyAccMag‑mean(), and tBodyAccJerkMag‑mean()—whose values (e.g., mean ‑0.927478 for X‑axis acceleration, mean 0.332044 for Z‑axis gravity) are interpreted as indicating that the subject is sitting."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb&lt;SEP&gt;chunk-0d652777985c56739c1bd98e6b471974</data>
+    </node>
+    <node id="&quot;HUMAN ACTIVITY RECOGNITION&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"Human Activity Recognition is the overall process of identifying and classifying human movements from sensor data, forming the context of the dataset described."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974</data>
+    </node>
+    <node id="&quot;DATASET&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"The Dataset is the organized collection of sensor measurements used for training and evaluating human activity recognition models."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974</data>
+    </node>
+    <node id="&quot;ACCELEROMETER&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Accelerometer refers to the sensor device that captures linear acceleration data, providing the raw signals for feature extraction in the activity recognition dataset."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974</data>
+    </node>
+    <node id="&quot;GYROSCOPE&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Gyroscope denotes the sensor that records rotational movement, contributing additional data dimensions for the activity recognition features."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974</data>
+    </node>
+    <node id="&quot;TBODYACC-MAX()-X&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived statistical feature representing the maximum body acceleration in the X direction; its values are used to identify both Walking Upstairs and general Walking activities."&lt;SEP&gt;"tBodyAcc-max()-X is a feature representing the maximum body acceleration in the X direction; its values help differentiate activities such as walking downstairs versus other walking types."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;TGRAVITYACC-MEAN()-Z&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived statistical feature representing the mean gravity acceleration in the Z direction; its values are used to identify both Walking Upstairs and general Walking activities."&lt;SEP&gt;"tGravityAcc-mean()-Z is a feature indicating mean gravity acceleration in the Z axis, used to infer subject posture (standing, sitting, laying)."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;TBODYACCMAG-MEAN()&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived statistical feature representing the mean body acceleration magnitude; its values are used to identify both Walking Upstairs and general Walking activities."&lt;SEP&gt;"tBodyAccMag-mean() is the mean magnitude of body acceleration, serving as a primary indicator of whether the subject is moving or static."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;TBODYACCMAG-STD()&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived statistical feature representing the standard deviation of body acceleration magnitude; its values are used to identify the Walking Upstairs activity."&lt;SEP&gt;"tBodyAccMag-std() is the standard deviation of body acceleration magnitude, mirroring the pattern of tBodyAccMag-mean() for verification of movement intensity."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;TGRAVITYACCMAG-STD()&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived statistical feature representing the standard deviation of gravity acceleration magnitude; its values are used to identify the Walking Upstairs activity."&lt;SEP&gt;"tGravityAccMag-std() is the standard deviation of gravity acceleration magnitude, also reflecting posture-related patterns across activities."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;TBODYACCJERKMAG-MEAN()&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived statistical feature representing the mean jerk magnitude of body acceleration; its values are used to identify the Walking Downstairs activity."&lt;SEP&gt;"tBodyAccJerkMag-mean() is the mean jerk magnitude of body acceleration, providing additional nuance in distinguishing static postures."</data>
+      <data key="d2">chunk-0d652777985c56739c1bd98e6b471974&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3</data>
+    </node>
+    <node id="&quot;TBODYACCJERKMAG‑MEAN() MEASUREMENT&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived measurement representing the mean jerk magnitude of body acceleration; reported statistics (e.g., mean ‑0.954396, percentile ‑0.779193) are used to infer activity states such as laying, sitting, or standing."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb</data>
+    </node>
+    <node id="&quot;TBODYACC‑MAX()‑X MEASUREMENT&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived measurement representing the maximum body acceleration in the X direction; reported statistics (e.g., mean ‑0.927478 for sitting, mean ‑0.939018 for standing) help differentiate posture activities."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb</data>
+    </node>
+    <node id="&quot;TGRAVITYACC‑MEAN()‑Z MEASUREMENT&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived measurement representing the mean gravity acceleration in the Z direction; reported statistics (e.g., mean 0.332044 for sitting, mean 0.016884 for standing) are used to classify posture."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb</data>
+    </node>
+    <node id="&quot;TBODYACCMAG‑MEAN() MEASUREMENT&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived measurement representing the mean magnitude of body acceleration; reported statistics (e.g., mean ‑0.948537 for sitting, mean ‑0.983533 for standing) contribute to activity detection."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb</data>
+    </node>
+    <node id="&quot;TBODYACCMAG‑STD() MEASUREMENT&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived measurement representing the standard deviation of body acceleration magnitude; reported statistics (e.g., mean ‑0.927078) are part of the feature set used to infer postures."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb</data>
+    </node>
+    <node id="&quot;TGRAVITYACCMAG‑STD() MEASUREMENT&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"A sensor-derived measurement representing the standard deviation of gravity acceleration magnitude; reported statistics (e.g., mean ‑0.927078) assist in distinguishing activities such as laying, sitting, and standing."</data>
+      <data key="d2">chunk-3f2cb4ae19e0458b81fae35a57c6aafb</data>
+    </node>
+    <node id="&quot;SUBJECT&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"Subject refers to the individual whose sensor measurements are being described, whose activity is identified as walking."&lt;SEP&gt;"Subject refers to the individual whose sensor measurements are recorded, performing activities such as standing and walking downstairs."&lt;SEP&gt;"The unnamed individual whose movement sensor data is analyzed; the data indicates their activity such as walking downstairs, walking upstairs, or level walking."</data>
+      <data key="d2">chunk-b7881ffcf76ffb17afa6b5f2557e8e0e&lt;SEP&gt;chunk-b51fe057b1bfc0058e02fd8343785af3&lt;SEP&gt;chunk-b30d8a419a96dada9667a414c3d435fd</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;FEATURE ANALYSIS&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"Feature analysis is the process of computing statistical metrics (mean, median, range, percentiles) for sensor-derived features such as tBodyAccMag and tGravityAccMag."</data>
+      <data key="d2">chunk-b30d8a419a96dada9667a414c3d435fd</data>
+    </node>
+    <node id="&quot;SENSOR DATA COLLECTION&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"Sensor data collection denotes the gathering of body and gravity acceleration magnitude readings that form the basis of the reported statistics."</data>
+      <data key="d2">chunk-b30d8a419a96dada9667a414c3d435fd</data>
+    </node>
+    <edge source="&quot;WALKING DOWNSTAIRS&quot;" target="&quot;STANDING&quot;">
+      <data key="d4">8.0</data>
+      <data key="d5">"The data sequence shows that after the standing activity, the subsequent measurements correspond to the Walking Downstairs activity, indicating a temporal progression from Standing to Walking Downstairs."\</data>
+      <data key="d6">chunk-b7881ffcf76ffb17afa6b5f2557e8e0e</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;WALKING DOWNSTAIRS&quot;" target="&quot;SUBJECT&quot;">
+      <data key="d4">9.0</data>
+      <data key="d5">"The subsequent sensor data showing increased X‑axis acceleration and varied Z‑axis gravity values indicates that the Subject is performing the Walking Downstairs activity."\</data>
+      <data key="d6">chunk-b7881ffcf76ffb17afa6b5f2557e8e0e</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;STANDING&quot;" target="&quot;SUBJECT&quot;">
+      <data key="d4">9.0</data>
+      <data key="d5">"The sensor data with near‑zero body acceleration and negative gravity values indicates that the Subject is performing the Standing activity."\</data>
+      <data key="d6">chunk-b7881ffcf76ffb17afa6b5f2557e8e0e</data>
+      <data key="d7">1</data>
+    </edge>
+  </graph>
+</graphml>
