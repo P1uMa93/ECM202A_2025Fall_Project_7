@@ -10,26 +10,6 @@ title: "Structured Reasoning for Sensor Data: Human Activity Recognition with Gr
 
 ---
 
-## 👥 **Contributors**
-
-- Richard Xiao (UCLA MEng Student) 
-- Mentor - Liying Han (UCLA ECE PhD)
-
----
-
-## 📝 **Abstract**
-
-Human Activity Recognition (HAR) from sensor data is critical for healthcare monitoring, smart homes, and mobile interaction, yet traditional approaches using Large Language Models lack transparency and provide black-box predictions that impede systematic debugging and improvement. This project investigates whether Graph-Augmented Retrieval-Augmented Generation (GraphRAG) can improve HAR accuracy and interpretability by constructing knowledge graphs that explicitly model entities, relationships, and hierarchical community structures from sensor data. We implemented a GraphRAG-based HAR system using the UCI Human Activity Recognition Dataset with nano-graphrag and Ollama models (gpt-oss:20b and 120b), comparing performance between global and local query modes. Our experiments revealed that local search mode significantly outperforms global search, with global mode failing to provide answers approximately 15% of the time due to insufficient context aggregation, while local mode demonstrated robust performance through entity-centric graph traversal. These findings demonstrate that GraphRAG's structured reasoning approach provides engineers with interpretable, traceable decision paths that transform HAR from opaque classification to auditable systems where failure modes can be systematically identified and addressed.
-
----
-
-## 📑 **Slides**
-
-- [Midterm Checkpoint Slides](http://)  
-- [Final Presentation Slides](http://)
-
----
-
 # **1. Introduction**
 
 Human Activity Recognition (HAR) has become increasingly important as wearable devices and smartphones proliferate in our daily lives. The ability to automatically recognize activities enables intelligent systems to provide contextual assistance, monitor health conditions, and enhance user experiences. While Large Language Models have shown surprising capability in HAR tasks through zero-shot and few-shot learning, they often function as black boxes—providing predictions without transparent reasoning paths. This limitation impedes systematic debugging and iterative improvement, critical needs for engineering teams deploying production HAR systems.
