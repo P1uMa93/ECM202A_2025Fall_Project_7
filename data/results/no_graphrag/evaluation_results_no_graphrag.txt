@@ -1,0 +1,1842 @@
+================================================================================
+BASELINE Evaluation Results - Direct Ollama WITHOUT GraphRAG
+Model: gpt-oss:120b
+Training Document: /home/m202/M202/Richard/training/test_4.txt
+Random Seed: 42
+================================================================================
+
+Total Queries: 60
+Correct: 38
+Incorrect: 22
+Accuracy: 63.33%
+
+================================================================================
+DETAILED RESULTS
+================================================================================
+
+Query File: query_11_Walking.txt
+True Label: Walking
+Predicted Label: Sitting
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   * tBodyAccMag‑mean* is –0.288, far higher than the very low values of static postures (≈ –0.9 to –1.0) and lower than the walking values (≈ –0.12). This indicates the subject is **not completely still**, but also **not moving vigorously** as in walking.
+
+2. **Posture (gravity Z)** –  
+   * tGravityAcc‑mean‑Z* is +0.134.  
+   – Values near 0 → upright (standing/walking).  
+   – Higher positive values → more horizontal (laying).  
+   – Intermediate values → sitting.  
+   The measured 0.134 lies clearly between the near‑zero standing mean (≈ 0.02) and the higher sitting mean (≈ 0.33), fitting the “sitting” region.
+
+3. **Consistency of other features** –  
+   * tBodyAcc‑max‑X* (–0.331) and the standard‑deviation features (≈ –0.49) are also intermediate: they are less extreme than static postures (≈ –0.94) but more extreme than walking (≈ –0.11 to –0.16). This pattern matches a low‑movement activity such as **sitting**.
+
+All six statistics point to a low‑movement, moderately upright posture, which corresponds to the **Sitting** class.
+
+**Predicted activity:** **Sitting**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_11_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving or static?**  
+   - The mean of **tBodyAcc‑max()‑X** is **+0.416**, a clearly positive value.  
+   - In the training data all static activities (Laying, Sitting, Standing) have a **negative** tBodyAcc‑max()‑X (around –0.9).  
+   - Therefore the subject is *moving*.
+
+2. **Which moving activity?**  
+   - **Walking**: tBodyAcc‑max()‑X ≈ –0.11 (negative).  
+   - **Walking Upstairs**: tBodyAcc‑max()‑X ≈ –0.16 (negative).  
+   - **Walking Downstairs**: tBodyAcc‑max()‑X ≈ **+0.39** (positive).  
+
+   The only moving class with a **positive** tBodyAcc‑max()‑X is **Walking Downstairs**, and the observed value (+0.416) is even a bit larger than the typical mean for that class, reinforcing this match.
+
+3. **Cross‑checking other features**  
+   - **tBodyAccMag‑mean** is +0.126, larger than the typical “downstairs” mean (≈ 0.027) but still far above the near‑zero/negative values seen for walking/standing, consistent with a vigorous movement.  
+   - **tGravityAcc‑mean‑Z** is +0.132. While downstairs examples have a slightly negative mean, this feature mainly distinguishes static postures; a modest positive value is still compatible with a moving posture.  
+   - **tBodyAccJerkMag‑mean** is –0.198, comparable to the magnitude seen in the downstairs data (‑0.089) and well within the range for dynamic activities.
+
+Overall, the pattern of a **strongly positive** maximum X‑axis body acceleration together with moderate positive body‑acceleration magnitude points to the **downstairs walking** class.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_12_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean of `tBodyAccMag‑mean()` is **+0.018**, i.e. around zero and clearly not the large negative values (≈ ‑1) seen for static activities (sitting, standing, laying). This tells us the subject is moving.
+
+2. **Posture** – `tGravityAcc‑mean‑Z` is **‑0.056**, a negative value indicating an upright posture, which is typical for walking‑related activities and not for sitting or laying.
+
+3. **Distinguishing the walking sub‑classes**  
+   * `tBodyAcc‑max‑X` has a **positive** mean of **0.413**. In the examples, only *walking downstairs* shows a positive, relatively large value (≈ 0.39). Walking and walking upstairs have negative means.  
+   * `tBodyAccMag‑mean()` is **+0.018**, a small positive number, matching the pattern of *walking downstairs* (≈ 0.027) and differing from the negative means of walking (≈ ‑0.12) and walking upstairs (≈ ‑0.13).  
+   * The standard‑deviation of the magnitude (`tBodyAccMag‑std`) is modestly positive (0.097). While a bit larger than the downstairs example (≈ 0.02), it is still far from the larger negative values seen for walking and walking upstairs, and the sign aligns with the downstairs pattern.
+
+Putting these clues together – positive, relatively high `tBodyAcc‑max‑X`, small positive `tBodyAccMag‑mean`, and upright gravity‑Z – the profile best matches **walking downstairs**.
+
+**Prediction**
+
+**Walking_Downstairs**
+
+--------------------------------------------------------------------------------
+
+Query File: query_13_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag‑mean()` is –0.03, i.e. close to zero (the static classes have values near –1). This tells us the subject is moving, so the activity must be one of the three walking‑related classes.
+
+2. **Posture** –  
+   `tGravityAcc‑mean‑Z` is –0.095. For walking‑related activities the gravity‑Z mean is negative (‑0.03 – ‑0.07), while for standing it is around 0 and for static postures it is positive. The value –0.095 is a little more negative than typical walking, which is consistent with the more inclined posture that occurs when going down stairs.
+
+3. **Maximum body acceleration in X** –  
+   `tBodyAcc‑max‑X` has a positive mean of **0.23**.  
+   * Walking: mean ≈ –0.11 (negative)  
+   * Walking Upstairs: mean ≈ –0.16 (negative)  
+   * Walking Downstairs: mean ≈ **+0.39** (positive)  
+
+   A positive value points strongly toward the *downstairs* pattern; it is far from the negative values seen for level walking or upstairs.
+
+4. **Magnitude and jerk** –  
+   * `tBodyAccMag‑mean()` ≈ –0.03 (near zero) and `tBodyAccMag‑std()` ≈ –0.016 – both are in the range of the walking‑related classes (much higher than the –0.9 … ‑1 range of static activities).  
+   * `tBodyAccJerkMag‑mean()` ≈ –0.13, which sits between the typical walking (‑0.15) and downstairs (‑0.09) values, again compatible with a downstairs walk that is a bit less vigorous.
+
+All six features together match the pattern observed for **Walking_Downstairs**: clear movement, a negative gravity‑Z indicating an inclined posture, and a distinctly positive X‑direction acceleration maximum.
+
+**Conclusion**
+
+The most probable activity for the given sensor data is **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_13_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Upstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag-mean()` is –0.10, far from the ≈ –0.95 values seen for static postures (standing, sitting, laying). This indicates the subject is moving, so the activity must be one of the walking types.
+
+2. **Magnitude of body‑acceleration** –  
+   * `tBodyAcc-max()-X` ≈ –0.16 → similar to the walking‑upstairs reference (–0.16) and distinct from walking (≈ –0.11) and walking‑downstairs (positive values).  
+   * `tBodyAccMag-std` ≈ –0.326 and the identical `tGravityAccMag-std` – these values match the walking‑upstairs pattern (≈ –0.33) and are far higher than standing/walking (≈ –0.23) and far lower than walking‑downstairs (≈ 0.02).
+
+3. **Jerk magnitude** –  
+   `tBodyAccJerkMag-mean()` ≈ –0.456, which is almost identical to the walking‑upstairs reference (–0.467) and much larger in magnitude than the walking reference (–0.152) or walking‑downstairs (≈ –0.09).
+
+4. **Gravity‑Z mean** –  
+   The gravity‑Z mean is –0.207, more negative than the typical walking‑upstairs value (≈ –0.07). However its large standard deviation (0.179) and the fact that the other features strongly point to the upstairs pattern suggest this is simply variability in the stair‑climbing posture.
+
+All six features together line up best with the **Walking Upstairs** signature.
+
+**Prediction**
+
+The activity most likely represented by the given sensor data is **Walking_Upstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_14_Sitting.txt
+True Label: Sitting
+Predicted Label: Standing
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean body‑acceleration magnitude `tBodyAccMag-mean()` is **‑0.944**, which is very close to the “static” value of –1 that appears for all non‑moving activities (sitting, standing, laying).  This tells us the subject is not walking, walking‑upstairs or walking‑downstairs.
+
+2. **Posture (gravity Z)** –  
+   The gravity‑Z mean `tGravityAcc-mean()-Z` is **‑0.094**.  
+   * In the training data:  
+     * Laying ≈ +0.44  
+     * Sitting ≈ +0.33  
+     * Standing ≈ 0 (± 0.05)  
+   The observed value is closest to zero (slightly negative), therefore it matches the **standing** posture rather than the higher positive values of sitting or laying.
+
+3. **Other static‑activity cues** –  
+   * `tBodyAcc-max()-X` = –0.914, which lies between the typical ranges for standing (≈‑0.94) and laying (≈‑0.91), again favouring standing.  
+   * The jerk‑magnitude and the standard‑deviation features are all near –0.97 to –0.93, consistent with a low‑movement (static) state.
+
+Putting the evidence together, the sensor pattern best fits the **standing** class.
+
+**Predicted activity:** **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_14_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag‑mean()` is **‑0.94**, which is close to the static baseline (‑1). All walking‑related activities have values near 0 (e.g., Walking ≈ ‑0.12, Walking_Upstairs ≈ ‑0.13, Walking_Downstairs ≈ 0.03). Therefore the subject is **not moving**; the activity is one of the static postures (Laying, Sitting, or Standing).
+
+2. **Posture (gravity Z)** –  
+   `tGravityAcc‑mean‑Z` is **‑0.34**.  
+   - Laying → positive, around 0.45  
+   - Sitting → positive, around 0.33  
+   - Standing → near 0 (≈ 0.02)  
+
+   A negative value indicates the body is more upright than the typical “standing” reference; it is certainly not horizontal (laying) nor intermediate (sitting). Hence the posture aligns best with **Standing**.
+
+3. **Supporting static features** –  
+   `tBodyAcc‑max‑X` (‑0.91) and the acceleration‑magnitude statistics (`tBodyAccMag‑mean`, `‑std`) are all close to the ranges observed for the **Standing** class in the training description (e.g., `tBodyAcc‑max‑X` ≈ ‑0.939, `tBodyAccMag‑mean` ≈ ‑0.983). The values are slightly less extreme but still fall within the standing‑like region.
+
+Putting the evidence together – low movement magnitude and a gravity‑Z value that points to an upright posture – the most plausible label is **Standing**.
+
+**Predicted activity:** **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_14_Walking.txt
+True Label: Walking
+Predicted Label: Walking_Upstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving or static?**  
+   - The mean of **tBodyAccMag‑mean** is –0.144 and the mean of **tBodyAccMag‑std** is –0.364.  
+   - These values are far from the static‑activity region (‑1 ≈ static, values around 0 ≈ movement) and are comparable to the walking‑related classes, not to Sitting, Standing or Laying (which have values close to –1 for the magnitude features).
+
+2. **Posture (gravity‑Z)**  
+   - **tGravityAcc‑mean‑Z** = –0.422.  
+   - This is strongly negative, indicating an upright posture (standing/walking) rather than the positive values seen for Sitting or Laying. It is more negative than the small‑negative values typical for flat walking (≈ –0.03 to –0.07), suggesting a more forward‑leaning orientation such as when climbing stairs.
+
+3. **Maximum X‑acceleration**  
+   - **tBodyAcc‑max‑X** = –0.193 (std ≈ 0.105).  
+   - Down‑stairs walking shows a *positive* large value (≈ +0.4) – clearly not the case here.  
+   - Walking on level ground has a mean around –0.11, while walking *up* stairs is a bit more negative (≈ –0.16) and with a slightly larger spread. Our value (–0.19) is a little more negative, fitting the “up‑stairs” range better than flat walking.
+
+4. **Magnitude statistics**  
+   - **tBodyAccMag‑mean** (‑0.144) and **tBodyAccMag‑std** (‑0.364) lie between the typical walking values (‑0.12, ‑0.23) and the walking‑upstairs values (‑0.13, ‑0.33). They are noticeably larger (more negative) than flat walking, again pointing to the higher effort of climbing stairs.
+
+Combining these clues – moving, upright, forward‑leaning, with X‑acceleration and magnitude statistics closer to the “up‑stairs” pattern – the most probable activity is **Walking Upstairs**.
+
+**Predicted activity:** **Walking_Upstairs**
+
+--------------------------------------------------------------------------------
+
+Query File: query_15_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag‑mean` is **‑0.96**, far below 0 (remember static values are around –1). This is typical for a *static* posture (standing, sitting or laying) and far from the positive values seen in walking activities.
+
+2. **Posture from gravity Z** –  
+   `tGravityAcc-mean()-Z` ≈ **0.06**.  
+   - Laying → high (≈0.45)  
+   - Sitting → moderate (≈0.33)  
+   - Standing → close to 0 (≈0.02)  
+   The observed value is low, near the standing range and far below sitting or laying.
+
+3. **Body‑acceleration magnitude** –  
+   `tBodyAccMag‑mean` = **‑0.96** and `tBodyAccMag‑std` = **‑0.95**.  
+   These lie between the typical standing values (≈‑0.98) and sitting values (≈‑0.95), again suggesting a near‑upright, low‑movement state.
+
+4. **Maximum X‑acceleration** –  
+   `tBodyAcc-max()-X` mean = **‑0.93** with a small spread. This is close to the standing mean (‑0.939) and a bit more negative than the sitting mean (‑0.927), supporting the standing hypothesis.
+
+5. **Jerk magnitude** –  
+   `tBodyAccJerkMag-mean` = **‑0.981** – aligns with the standing profile (‑0.992) and is slightly more negative than the sitting profile (‑0.987).
+
+All six features collectively point to a low‑movement, upright posture, i.e., **standing**.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the activity **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_15_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Downstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving or static?**  
+   – The mean of **tBodyAcc‑max()‑X** is **+0.236**, a clearly positive value. In all static activities (Sitting, Standing, Laying) this feature is strongly negative (≈ ‑0.9). Hence the subject is moving.
+
+2. **Which type of movement?**  
+   – For the three walking‑related classes we have the following typical patterns (from the examples):  
+
+| Activity | tBodyAcc‑max()‑X (mean) | tGravityAcc‑mean()‑Z (mean) | tBodyAccMag‑mean |
+|----------|------------------------|-----------------------------|------------------|
+| Walking (level) | ≈ ‑0.11 | ≈ ‑0.03 | ≈ ‑0.12 |
+| Walking Upstairs | ≈ ‑0.16 | ≈ ‑0.07 | ≈ ‑0.13 |
+| Walking Downstairs | **≈ +0.39** (clearly positive) | ≈ ‑0.06 | ≈ +0.03 (near zero) |
+
+   – The **positive** value of **tBodyAcc‑max()‑X** matches the “downstairs” pattern (the only class where this feature is positive).  
+   – The other features are also compatible:  
+   * **tBodyAccMag‑mean** is –0.001, essentially zero, just like the “downstairs” example (≈ +0.03).  
+   * **tGravityAcc‑mean()‑Z** is +0.08, a small positive number; although the downstairs example shows a slight negative, this feature varies more with sensor orientation and its magnitude (≈ 0.08) is still close to zero, unlike the larger positive values seen in sitting or laying.  
+   * **tBodyAcc‑JerkMag‑mean** (‑0.316) lies between the typical walking (‑0.15) and upstairs (‑0.47) values, which is reasonable for a downhill gait that involves moderate jerk.
+
+3. **Conclusion**  
+   The combination of a clearly **positive** maximum X‑acceleration together with near‑zero body‑acceleration magnitude points to **walking down stairs**.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_17_Sitting.txt
+True Label: Sitting
+Predicted Label: Walking
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is –0.97, which is very close to the “‑1” baseline that appears for all **static** activities (standing, sitting, laying). For any walking activity the value is far from –1 (e.g., –0.12 for walking, 0.03 for downstairs). Hence the subject is not moving.
+
+2. **Posture** –  
+   *tGravityAcc‑mean‑Z* helps distinguish the static postures:  
+   * Laying → large positive (~ 0.45)  
+   * Sitting → moderate positive (~ 0.33)  
+   * Standing → around zero (≈ 0.0)  
+
+   The reported mean is –0.136, a little below zero. Although a bit more negative than the typical standing mean (≈ 0.02), it is still far from the positive values of sitting or laying. The negative shift can be explained by slight forward lean or sensor orientation, but it clearly does **not** match the positive ranges of sitting or laying.
+
+3. **Acceleration magnitude consistency** –  
+   *tBodyAcc‑max‑X* mean (‑0.938) and the standard deviations of the magnitude features are all very close to the values observed for **standing** in the training description (‑0.939,‑0.983,‑0.981, etc.).  
+
+   The jitter/jerk mean (‑0.9928) also aligns with the very low‑variance, near‑‑1 values typical of static postures, especially standing.
+
+Putting the evidence together: the sensor data show almost no movement, and the gravity‑Z component points to an upright posture rather than a horizontal one. The pattern matches the *standing* reference statistics best.
+
+**Predicted activity:** **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_18_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* and *tBodyAccMag‑std* are both around **‑0.99**, i.e. very close to the “‑1” bias that appears when the subject is not moving. This tells us the activity is a **static posture** (lying, sitting or standing), not a walking‑type activity.
+
+2. **Posture from gravity (Z‑axis)** –  
+   *tGravityAcc‑mean‑Z* has a **high positive value** (mean ≈ 0.61, median ≈ 0.84, range 0.33 – 0.86).  
+   - Standing → values around 0 (≈ 0 ± 0.05).  
+   - Sitting → moderate positive values (~0.3 ± 0.07).  
+   - Laying → the highest values, often > 0.4 and can approach 1 when the device is horizontal.  
+
+   The observed gravity Z‑mean is clearly higher than typical sitting values and well above the standing range, matching the **laying** pattern.
+
+3. **Other static features** –  
+   *tBodyAcc‑max‑X* (mean ≈ ‑0.927) is within the range seen for both sitting and laying, but it does not contradict the gravity‑based conclusion. The jerk and gravity‑mag std values are also consistent with a very low‑movement state.
+
+Putting the evidence together, the dominant cue is the **high gravity‑Z component**, which signals a horizontal (lying) orientation, while all acceleration‑based metrics confirm the subject is static.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Laying**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_18_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is –0.97, very close to –1. This indicates almost no body‑movement, so the activity is one of the static classes (Sitting, Standing, Laying).
+
+2. **Posture from gravity** –  
+   *tGravityAcc‑mean‑Z* has a mean of –0.05 (range –0.24 … 0.10). Values near zero (negative to slightly positive) correspond to an upright posture.  
+   – Laying: large positive (~0.44)  
+   – Sitting: moderate positive (~0.33)  
+   – Standing: around zero (‑0.05 fits this).
+
+3. **Other static‑activity signatures** –  
+   *tBodyAcc‑max‑X* mean = –0.934, which matches the standing profile (‑0.939 in the training example) and is slightly higher (less negative) than the sitting and laying values (‑0.927 … ‑0.906).  
+
+All six feature statistics line up with the **Standing** pattern observed in the training data.
+
+**Predicted activity:** **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_18_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Upstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean body‑acceleration magnitude (`tBodyAccMag‑mean`) is –0.28, far away from the static‑activity values (≈ –0.9 to –1.0) and clearly indicates the subject is moving.
+
+2. **Posture** –  
+   `tGravityAcc‑mean‑Z` is –0.106, a negative value that places the subject in an upright posture (standing / walking) rather than a sitting or laying posture (which have values near 0 – 0.5 or > 0.3).
+
+3. **Comparing the moving‑activity signatures**  
+
+| Feature | Walking | Walking Upstairs | Walking Downstairs |
+|---------|---------|------------------|--------------------|
+| `tBodyAcc‑max‑X` (mean) | –0.11 | –0.16 | **+0.39** |
+| `tGravityAcc‑mean‑Z` (mean) | –0.03 | –0.07 | –0.06 |
+| `tBodyAccMag‑mean` (mean) | –0.12 | –0.13 | **+0.03** |
+| `tBodyAccMag‑std` (mean) | –0.23 | –0.33 | **+0.02** |
+| `tBodyAccJerkMag‑mean` (mean) | –0.15 | –0.47 | –0.09 |
+
+The sample values are:
+
+* `tBodyAcc‑max‑X` = –0.148 → close to the **up‑stairs** range (‑0.16) and far from the large positive value of down‑stairs.
+* `tGravityAcc‑mean‑Z` = –0.106 → a little more negative than the typical up‑stairs value (‑0.07) but still consistent with an upright, stair‑climbing posture.
+* `tBodyAccMag‑mean` = –0.279 and `tBodyAccMag‑std` = –0.372 – both are **more negative** (i.e., lower) than the usual up‑stairs values (‑0.13 and –0.33). This suggests a slightly higher intensity of movement, which can happen when ascending stairs.
+* `tBodyAccJerkMag‑mean` = –0.601 – considerably larger (more negative) than the typical up‑stairs jerk (‑0.47) and far from the small jerk of down‑stairs. A larger jerk is also characteristic of the extra effort required when going up stairs.
+
+Overall, the pattern matches the **Walking Upstairs** signature (negative max‑X, upright gravity Z, moderate magnitude, and a relatively high jerk) more closely than walking on level ground or walking down stairs.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the activity **“Walking_Upstairs.”**
+
+--------------------------------------------------------------------------------
+
+Query File: query_19_Sitting.txt
+True Label: Sitting
+Predicted Label: Laying
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean of `tBodyAccMag‑mean()` is –0.962, which is far from the positive values seen in walking activities and is typical of a *static* posture (standing, sitting, or laying).
+
+2. **Posture from gravity** – `tGravityAcc‑mean‑Z` has a relatively high positive mean (0.49) with a large spread (std ≈ 0.20).  
+   - Upright postures (standing, walking) have values around 0 or slightly negative.  
+   - Sitting is around 0.33 with low variance.  
+   - Laying is around 0.45 with higher variance.  
+   The observed value is even higher than the typical sitting mean and matches the range expected for a **horizontal (lying) posture**.
+
+3. **Supporting static‑feature values** –  
+   - `tBodyAcc‑max‑X` (mean ≈ –0.92) lies between the typical laying (≈ –0.91) and sitting (≈ –0.93) values, compatible with a lying posture that may involve slight movements.  
+   - The jerk and standard‑deviation features are all strongly negative (≈ –0.98 to –0.99), indicating very little dynamic motion, consistent with lying still.
+
+Combining the strong horizontal gravity signal with the static acceleration profile points to the subject being **horizontal** rather than upright.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Laying** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_19_Walking.txt
+True Label: Walking
+Predicted Label: Walking_Downstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving?**  
+   - `tBodyAccMag‑mean` = **0.0648** (around zero, far from the –1 values seen for static activities).  
+   - `tBodyAccMag‑std` ≈ –0.10 (small magnitude, also far from the large negative values of static postures).  
+   → The subject is definitely **in motion** (walking‑type activity).
+
+2. **Upright vs. horizontal posture**  
+   - `tGravityAcc‑mean‑Z` = **–0.0898** (negative, close to the values observed for upright postures; lying would give a large positive value).  
+   → The posture is **upright**, consistent with standing, walking, or stair‑walking.
+
+3. **Distinguish among the moving, upright activities**  
+   - **Maximum X‑axis body acceleration** (`tBodyAcc‑max‑X`) is **+0.384**, a relatively large **positive** value.  
+     - In the training set, **walking downstairs** shows a positive mean (~+0.39).  
+     - Walking upstairs and normal walking have negative means (≈ –0.11 to –0.16).  
+   - **Mean body‑acceleration magnitude** (`tBodyAccMag‑mean`) is **+0.0648**, a small positive number, again matching the pattern of the downstairs example (+0.027) and unlike the negative means of upstairs (≈ –0.13) and regular walking (≈ –0.12).  
+   - **Jerk magnitude mean** (`tBodyAccJerkMag‑mean`) is **+0.109**, a positive value; the downstairs example, while slightly negative, is the only case where the jerk magnitude is close to zero rather than a larger negative value seen for upstairs or flat walking.
+
+4. **Overall match**  
+   The combination of a **large positive X‑axis max acceleration**, **positive (or near‑zero) acceleration magnitude**, and an **upright gravity Z mean** aligns best with the **Walking Downstairs** profile provided in the examples.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_1_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement level** – The body‑acceleration magnitude features (`tBodyAccMag‑mean`, `tBodyAccMag‑std`) are close to –1 with only a small spread (≈ 0.3 – 0.35). This pattern is typical for a *static* activity (laying, sitting, or standing) rather than walking‑related activities, which show values around 0 or positive.
+
+2. **Posture indicator** – The gravity‑acceleration Z mean (`tGravityAcc‑mean‑Z`) is **high and positive** (≈ 0.45). A higher Z‑gravity value corresponds to a more horizontal body orientation, i.e., the person is lying down. Sitting would give a moderate value (~0.33) and standing would be near zero.
+
+3. **Consistency with known example** – All six feature statistics match exactly the summary that was previously shown for the **Laying** class (same means, standard deviations, percentiles, ranges).
+
+Given the low movement and the relatively high gravity‑Z mean indicating a horizontal posture, the activity is best explained as **Laying**.
+
+**Predicted activity:** **Laying**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_1_Sitting.txt
+True Label: Sitting
+Predicted Label: Sitting
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+- **Movement level** – The mean body‑acceleration magnitude (`tBodyAccMag-mean`) is around –0.95 and the standard deviation is also low (≈ –0.93). These values are far below the positive values seen for walking activities and are typical of a static posture.
+
+- **Posture cue** – The gravity‑Z mean (`tGravityAcc-mean()-Z`) is about 0.33. This is higher than the near‑zero values seen for standing or walking, but lower than the higher values typical of a completely horizontal (laying) posture. Such an intermediate gravity‑Z value is characteristic of a seated posture.
+
+- **Other static‑activity features** – The max X acceleration, the jerk‑magnitude mean, and the gravity‑acceleration‑mag std all fall within the narrow ranges that were shown for the *Sitting* class in the training description.
+
+All six feature summaries match the statistical pattern described for **Sitting**.
+
+**Predicted activity:** **Sitting**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_1_Standing.txt
+True Label: Standing
+Predicted Label: Sitting
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* and *tBodyAccMag‑std* are both around **‑0.98**, i.e., very close to the static‑activity baseline (≈‑1). This tells us the subject is not walking, upstairs or downstairs (those have values nearer 0 or positive). So the activity is one of the static postures: Sitting, Laying, or Standing.
+
+2. **Posture cue** –  
+   *tGravityAcc‑mean‑Z* is **0.013**, essentially zero.  
+   – For **Standing** the training data shows a mean near 0.016 (≈0).  
+   – For **Sitting** the mean is around 0.33, and for **Laying** it is about 0.45.  
+   Hence the gravity‑Z value points strongly to **Standing**.
+
+3. **Fine‑grained static check** –  
+   *tBodyAcc‑max‑X* mean is **‑0.9393** with a very small SD (0.007).  
+   This matches the Standing reference (‑0.9390 ± 0.007) and differs from the tighter range seen in Sitting (‑0.927 ± 0.004) and Laying (‑0.906 ± 0.061).
+
+4. **Consistency across other static features** –  
+   *tBodyAccMag‑std*, *tGravityAccMag‑std*, and *tBodyAccJerkMag‑mean* all have values that align almost exactly with the Standing example (‑0.982 ± 0.03, ‑0.992 ± 0.004, etc.).
+
+All six features line up with the pattern observed for **Standing** in the training description.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the activity:
+
+**Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_1_Walking.txt
+True Label: Walking
+Predicted Label: Walking
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of **tBodyAccMag‑mean** is –0.137, well away from the static‑activity region (≈ –0.95 to –0.84). This indicates the subject is moving, so the activity must be one of the walking‑type classes.
+
+2. **Distinguishing the walking sub‑classes** –  
+
+| Feature | Walking (reference) | Walking Upstairs | Walking Downstairs |
+|---------|---------------------|------------------|--------------------|
+| tBodyAcc‑max‑X (mean) | –0.109 | –0.162 | **+0.389** |
+| tGravityAcc‑mean‑Z (mean) | –0.033 | –0.074 | –0.062 |
+| tBodyAccMag‑mean (mean) | –0.118 | –0.130 | **+0.027** |
+| tBodyAccMag‑std (mean) | –0.232 | –0.329 | **+0.020** |
+| tBodyAccJerkMag‑mean (mean) | –0.152 | –0.467 | –0.089 |
+
+The query record shows:
+
+* **tBodyAcc‑max‑X = –0.103** – close to the Walking reference (–0.109) and far from the positive value of Downstairs; it is less negative than the Upstairs reference (–0.162).
+* **tGravityAcc‑mean‑Z = –0.068** – a little more negative than ordinary Walking (–0.033) but still within the range observed for both Walking and Walking Upstairs. It is not the near‑zero value typical of Downstairs.
+* **tBodyAccMag‑mean = –0.137** and **tBodyAccMag‑std = –0.220** – both match the Walking pattern (≈ –0.12 and –0.23) and are markedly different from the much larger (positive) values of Downstairs and the much lower (more negative) values of Upstairs.
+* **tBodyAccJerkMag‑mean = –0.141** – aligns with Walking (–0.152) and is far from the strong negative value of Upstairs (–0.467).
+
+All six features therefore resemble the statistical profile of the **Walking** class and do not fit the distinctive signatures of Walking Upstairs, Walking Downstairs, or any static posture.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Walking** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_20_Sitting.txt
+True Label: Sitting
+Predicted Label: Sitting
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The body‑acceleration magnitude (`tBodyAccMag‑mean`) is around **‑0.95**, and the corresponding standard deviations are also strongly negative (≈ ‑0.94). These values are typical of *static* activities (standing, sitting, laying) and far from the positive values seen in walking‑related activities.
+
+2. **Posture (gravity Z)** –  
+   `tGravityAcc‑mean‑Z` is **+0.15**.  
+   * Laying → high positive (≈ 0.45)  
+   * Sitting → moderate positive (≈ 0.33)  
+   * Standing → near zero (≈ 0.02)  
+
+   The observed 0.15 sits between standing and sitting, but is notably lower than the typical sitting value.
+
+3. **Other static‑activity cues** –  
+   * `tBodyAcc‑max‑X` has a mean of **‑0.92** with a modest spread (σ≈0.04). This spread matches the **sitting** pattern (σ≈0.04) more closely than standing (σ≈0.007) and is comparable to laying (σ≈0.06).  
+   * `tBodyAccMag‑mean` (‑0.95) and `tBodyAccMag‑std` (‑0.94) are much nearer the sitting reference (‑0.95, ‑0.93) than the standing reference (‑0.98, ‑0.98).  
+   * The jerk magnitude (`tBodyAccJerkMag‑mean`) is ‑0.98, again aligning with the sitting range (‑0.987) rather than the standing range (‑0.992).
+
+Putting the evidence together: the data clearly indicate a **static** posture, and the combination of a modestly positive gravity‑Z value, a sitting‑like spread in `tBodyAcc‑max‑X`, and body‑acceleration magnitudes that match the sitting statistics point to the subject being **sitting** (perhaps slightly leaning forward, which explains the lower gravity‑Z).
+
+**Conclusion**
+
+The sensor data most likely represent the activity **Sitting**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_20_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Downstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the person moving?**  
+   - `tBodyAccMag‑mean` is ≈ 0.009, which is close to zero (the static activities have values around –0.9 to –1).  
+   - Therefore the subject is moving → one of the walking‑type activities.
+
+2. **Which walking type?**  
+   - ` tBodyAcc‑max‑X` has a **positive** mean (≈ 0.14). In the examples, a positive, relatively high value appears only for **walking downstairs** (walking and walking upstairs have negative means).  
+   - ` tBodyAccMag‑mean` is slightly positive (≈ 0.01), again consistent with the “downstairs” pattern (walking downstairs shows a small positive mean, while walking and upstairs show negative means).  
+   - Other features (`tGravityAcc‑mean‑Z`, `tBodyAccMag‑std`, `tBodyAccJerkMag‑mean`) are within the ranges seen for the downstairs class, though not as extreme as the most pronounced downhill examples – this can happen for milder downhill steps.
+
+Combining these clues, the profile matches the **Walking_Downstairs** activity.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_21_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag‑mean()` is –0.95, a clearly negative value that falls in the “static” range (standing, sitting, laying). A moving activity (walking, upstairs, downstairs) would give values around 0 or positive.
+
+2. **Posture** –  
+   The decisive feature for static postures is `tGravityAcc‑mean‑Z`.  
+   * Laying: ≈ 0.45  
+   * Sitting: ≈ 0.33  
+   * Standing: ≈ 0.0 (near zero)  
+
+   The queried sample has **0.788**, far higher than even the typical laying value, indicating a very horizontal orientation – i.e., the subject is lying down.
+
+3. **Other static features** –  
+   `tBodyAcc‑max‑X`, `tBodyAccMag‑std`, `tGravityAccMag‑std`, and `tBodyAccJerkMag‑mean` all lie in the ranges observed for static activities (values around –0.9 to –0.98), supporting the conclusion that no walking motion is present.
+
+**Conclusion**
+
+The combination of a strongly negative movement‑related magnitude and an unusually high gravity‑Z mean points to a horizontal, non‑moving posture.
+
+**Predicted activity:** **Laying**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_21_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean values of `tBodyAccMag-mean()` (‑0.958 ≈ ‑1) and `tBodyAccMag-std()` (‑0.957) are very close to the “‑1” bias that the data use for **no movement**. This pattern matches the static activities (Sitting, Standing, Laying) and is far from the higher values seen in any walking activity (‑0.13 … +0.03).
+
+2. **Posture (gravity‑Z)** –  
+   The gravity‑Z mean (`tGravityAcc-mean()-Z`) is –0.208.  
+   * Laying → high positive (≈ +0.44)  
+   * Sitting → moderate positive (≈ +0.33)  
+   * Standing → around zero (≈ 0.0)  
+
+   The only static class whose gravity‑Z is close to zero is **Standing**. Although the query value is slightly negative, it is still the closest of the three static postures; it is far from the clearly positive values of Sitting and Laying.
+
+3. **Other features** –  
+   The max body‑acceleration in X (`tBodyAcc-max()-X`) is –0.924, which falls within the narrow range observed for Standing (‑0.945 … ‑0.897).  
+
+Putting the evidence together: the subject shows essentially no movement and a gravity‑Z value consistent with an upright posture.
+
+**Conclusion**
+
+The sensor data most likely correspond to **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_22_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag-mean()` is **+0.33**, far away from the “‑1” bias seen in static activities (standing, sitting, laying). This clearly indicates the subject is moving.
+
+2. **Direction of the body‑acceleration peak** –  
+   `tBodyAcc-max()-X` has a **large positive mean (≈ 0.49)**. In the reference data, a **positive** max‑X is characteristic of **walking downstairs** (the downstairs example had a mean ≈ 0.39, whereas walking and walking‑upstairs show negative or near‑zero values).
+
+3. **Overall activity intensity** –  
+   The magnitude statistics (`tBodyAccMag-mean()`, `tBodyAccMag-std()`) are the highest among the moving classes. The description notes that **walking downstairs yields the highest body‑acceleration magnitude**, which matches the relatively high 0.33 value here.
+
+4. **Posture indicator** –  
+   `tGravityAcc-mean()-Z` is close to zero (≈ 0.04), consistent with an upright, dynamic posture (standing‑like values are near zero, while sitting or laying give higher positive values).
+
+Putting these clues together (high movement, large positive X‑axis peak, highest acceleration magnitude), the pattern aligns best with the **walking‑downstairs** class.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_23_Standing.txt
+True Label: Standing
+Predicted Label: Walking_Upstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The magnitude‐based features (`tBodyAccMag‑mean`, `tBodyAccMag‑std`, `tGravityAccMag‑std`) are all around **‑0.95 to ‑0.98**, i.e. well below zero. In this dataset values near zero (or positive) indicate strong movement (walking, walking upstairs/downstairs). The very low (negative) values therefore tell us the subject is **static** (not walking).
+
+2. **Posture (gravity Z)** –  
+   The key to differentiate the static postures is `tGravityAcc‑mean‑Z`:
+   * **Laying** → high positive (~ +0.4)  
+   * **Sitting** → moderate positive (~ +0.3)  
+   * **Standing** → around zero (≈ 0) with a small spread  
+
+   The query shows a mean of **‑0.223** (negative) with a fairly large spread (‑0.414 → 0.015). This is clearly **not** the positive values seen for laying or sitting, and it is more negative than the typical standing mean (≈ 0). Nevertheless, among the three static classes, the only one compatible with a *negative* gravity‑Z is **standing** (the subject is upright, possibly slightly leaning forward, which can push the mean below zero).
+
+3. **Other static features** –  
+   `tBodyAcc‑max‑X` (‑0.925) and the jerk magnitude (‑0.979) are very close to the values observed for the **standing** class in the training description (‑0.939 and ‑0.992 respectively). They are also consistent with the low‑movement pattern of standing.
+
+Putting these observations together, the sensor record most closely matches the **standing** profile.
+
+**Predicted activity:** **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_23_Walking.txt
+True Label: Walking
+Predicted Label: Walking
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Is the person moving?**  
+   - `tBodyAccMag‑mean` is –0.098 ≈ 0 (static activities are around –0.9 to –1).  
+   - `tBodyAccMag‑std` is –0.210 ≈ 0. Both indicate noticeable movement, so the activity is one of the walking‑type classes.
+
+2. **Differentiate the walking‑type classes**  
+
+   | Feature | Walking (flat) | Walking Upstairs | Walking Downstairs |
+   |---------|----------------|------------------|--------------------|
+   | `tBodyAcc‑max‑X` (mean) | –0.11 | –0.16 | +0.39 |
+   | `tGravityAcc‑mean‑Z` (mean) | –0.03 | –0.07 | –0.06 |
+   | `tBodyAccMag‑std` (mean) | –0.23 | –0.33 | +0.02 |
+
+   - The given `tBodyAcc‑max‑X` = –0.065 is close to the walking‑flat value (‑0.11) and far from the large positive value of downhill walking.  
+   - `tGravityAcc‑mean‑Z` = –0.161 is more negative than the typical walking‑flat mean (‑0.03), but still in the range of upright postures; it is more negative than the modest values seen for stairs, suggesting a flatter gait.  
+   - `tBodyAccMag‑std` = –0.210 lies between the walking‑flat (‑0.23) and walking‑upstairs (‑0.33) values, and is far from the near‑zero/positive value of downhill walking.
+
+   The overall pattern (moderate negative max‑X, near‑zero magnitude statistics, and a standard‑deviation similar to the flat‑walking reference) matches the **Walking** class best.
+
+3. **Conclusion**
+
+The sensor statistics most closely resemble the “Walking” (flat) activity.
+
+**Predicted activity:** **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_24_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is –0.97, which is strongly negative and close to the values seen for static activities (‑0.95 ≈ ‑0.99).  This tells us the subject is not moving, so the candidate activities are **Laying, Sitting,** or **Standing**.
+
+2. **Posture (gravity Z)** –  
+   *tGravityAcc‑mean‑Z* is **+0.68**, a very high positive value. In the description, a higher gravity‑Z means a more horizontal body orientation (lying).  
+   - Laying: ≈ 0.44  
+   - Sitting: ≈ 0.33  
+   - Standing: ≈ 0.0  
+
+   The observed 0.68 is even higher than the typical laying value, clearly indicating a very horizontal posture → **Laying**.
+
+3. **Other static‑activity cues** –  
+   *tBodyAcc‑max‑X* (‑0.92) and *tBodyAccJerkMag‑mean* (‑0.985) fall within the range common to both sitting and standing, but they do not contradict the strong indication from gravity‑Z.
+
+4. **Conclusion** – The combination of (i) negligible movement and (ii) a very high gravity‑Z value points to the subject being horizontal, i.e., **Laying**.
+
+**Predicted activity:** **Laying**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_24_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Upstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean body‑acceleration magnitude (`tBodyAccMag‑mean`) is –0.226, far higher (i.e., closer to zero) than the values for static activities (≈ –0.9 to –1.0). This tells us the subject is moving, so the activity must be one of the walking categories.
+
+2. **Posture (gravity Z)** – `tGravityAcc‑mean‑Z` is –0.227, a clearly negative value. All walking‑related classes have a negative Z (walking ≈ –0.03, upstairs ≈ –0.07, downstairs ≈ –0.06). The more negative value suggests a steeper forward tilt, typical of walking **uphill** rather than flat walking.
+
+3. **Maximum X‑acceleration** – `tBodyAcc‑max‑X` is –0.086, close to the flat‑walking value (≈ –0.11) and much lower than the positive value seen for downstairs (≈ 0.39). This is consistent with walking on an incline.
+
+4. **Magnitude‑std and jerk‑mean** –  
+   * `tBodyAccMag‑std` = –0.307 and `tBodyAccJerkMag‑mean` = –0.489.  
+   * These numbers are very close to the typical values for **walking upstairs** (std ≈ –0.329, jerk‑mean ≈ –0.467) and far from flat walking (std ≈ –0.232, jerk‑mean ≈ –0.152) or downstairs (std ≈ 0.020, jerk‑mean ≈ –0.089).
+
+All six feature summaries therefore match the pattern of *walking uphill* best.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Walking_Upstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_25_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *The mean of `tBodyAccMag‑mean` is –0.56 and `tBodyAccJerkMag‑mean` is –0.96.*  
+   The jerk mean is very close to –1, which in this dataset signals almost no rapid changes (i.e., a static posture). The body‑acceleration magnitude is also far from 0 (the region of strong movement) and sits between the static ranges (≈ –0.9) and the walking range (≈ –0.1). This points to a largely static activity.
+
+2. **Posture (gravity Z)** –  
+   *`tGravityAcc‑mean‑Z` = 0.53.*  
+   High positive values of this feature correspond to a more horizontal orientation (lying down).  
+   – Laying: mean ≈ 0.44 (range up to ~1).  
+   – Sitting: mean ≈ 0.33.  
+   – Standing / walking: values near 0 or negative.  
+
+   The observed 0.53 is higher than typical sitting and clearly higher than standing or walking, matching the lying‑down pattern.
+
+3. **Body‑acceleration max in X** –  
+   *`tBodyAcc‑max‑X` = –0.88.*  
+   This is similar to the static classes (lying –0.91, sitting –0.93, standing –0.94) and far from the walking‑related values (around 0 or small negative). It therefore supports a static posture.
+
+4. **Overall picture** –  
+   The data show very low jerk (static), a high positive gravity‑Z (horizontal), and a body‑acceleration max comparable to other static activities. The combination is most consistent with the **Laying** posture.
+
+**Conclusion**
+
+The sensor reading most likely represents **Laying**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_25_Walking.txt
+True Label: Walking
+Predicted Label: Walking
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of **tBodyAcc‑Mag** is –0.405, far away from the ~‑1 values seen for static postures (standing, sitting, laying) and much closer to the values around 0 that appear when the person is moving. The same holds for **tBodyAcc‑max‑X** (‑0.506) and the standard‑deviation features, which are also intermediate between the very low‑movement static values and the higher‑movement walking values.
+
+2. **Posture** –  
+   The gravity‑Z mean (0.188) is higher than the near‑zero value typical for standing (≈0.02) but well below the higher values for sitting (≈0.33) and laying (≈0.45). This suggests an upright posture with some movement, i.e., walking rather than a seated or lying position.
+
+3. **Comparison with known activity signatures** –  
+   * Walking: tBodyAcc‑max‑X ≈ –0.11, tBodyAcc‑Mag ≈ –0.12, gravity‑Z ≈ –0.03.  
+   * Walking‑upstairs: tBodyAcc‑max‑X ≈ –0.16, tBodyAcc‑Mag ≈ –0.13, gravity‑Z ≈ –0.07.  
+   * Walking‑downstairs: tBodyAcc‑max‑X positive, tBodyAcc‑Mag ≈ 0.03, gravity‑Z ≈ –0.06.  
+
+   The current sample shows a stronger negative X‑acceleration (‑0.5) and a larger magnitude (‑0.40) than the typical walking signatures, but it is still far from the static‑activity values (≈‑0.94 to ‑1.0). This pattern fits best with the **walking** class, where the sensor values are shifted toward zero relative to the static cases.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Walking** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_25_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean of **tBodyAccMag‑mean()** is –0.22.  
+   * Static activities (Sitting, Standing, Laying) have values close to –0.9 … –0.8.  
+   * Walking‑related activities have values nearer to 0 (‑0.13 … 0.03).  
+   Hence the subject is clearly **moving**, not static.
+
+2. **Posture cue** – The mean of **tGravityAcc‑mean‑Z** is +0.22.  
+   * Very high values (≈0.4) point to a horizontal posture (Laying).  
+   * Mid‑range values (≈0.33) point to a seated posture (Sitting).  
+   * Values near 0 (‑0.06 … 0) are typical for upright walking (Walking, Walking_Upstairs, Walking_Downstairs).  
+   The observed +0.22 is higher than the typical walking range but far lower than the seated or lying ranges, suggesting the sensor may be slightly tilted while the person is upright and moving.
+
+3. **Putting it together** – The data show clear movement (tBodyAccMag‑mean ≈ –0.22) with a posture that is roughly upright (gravity‑Z not high enough for sitting/laying). This pattern best matches the **Walking** class, whose characteristic values are:
+
+   * tBodyAccMag‑mean ≈ –0.12 … ‑0.13 (close to our –0.22)  
+   * tGravityAcc‑mean‑Z ≈ 0 … ‑0.03 (our +0.22 is a slight deviation but still far from sitting/laying).
+
+   The other walking variants (upstairs/downstairs) have a negative gravity‑Z mean, which we do not see here.
+
+**Conclusion**
+
+The most likely activity is **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_26_Walking.txt
+True Label: Walking
+Predicted Label: Walking_Upstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving?**  
+   - The mean body‑acceleration magnitude **tBodyAccMag‑mean = –0.223** is far from the static‑activity values (≈ –0.9 to –1.0) and lies in the range observed for the moving classes (≈ –0.13 to +0.03).  
+   - Likewise, the standard deviation **tBodyAccMag‑std = –0.422** is much larger (i.e., closer to zero) than the static‑activity values (≈ –0.98) and is comparable to the moving classes.
+
+   → The activity is definitely a *moving* one (walking, walking upstairs or walking downstairs).
+
+2. **Posture indicator (gravity Z).**  
+   - For static postures the gravity‑Z mean is positive (laying ≈ 0.45, sitting ≈ 0.33, standing ≈ 0.02).  
+   - For all walking activities it is slightly negative (walking ≈ –0.03, upstairs ≈ –0.07, downstairs ≈ –0.06).  
+   - The observed value **tGravityAcc‑mean‑Z = 0.108** is positive but relatively low, indicating an upright posture that is not as tilted as sitting or laying. This is consistent with a *walking* posture where the sensor is slightly more upright than in the training examples.
+
+3. **Maximum X‑acceleration.**  
+   - Walking: –0.11  Walking _upstairs: –0.16  Walking _downstairs: +0.39  
+   - The observed **tBodyAcc‑max‑X = –0.072** is closest to the walking value (the only class with a mean near zero and negative).
+
+4. **Jerk magnitude mean.**  
+   - Walking: –0.15  Walking _upstairs: –0.47  Walking _downstairs: –0.09  
+   - The observed **tBodyAccJerkMag‑mean = –0.291** lies between walking and walking‑upstairs, again favouring the generic walking class rather than the more extreme upstairs or downstairs patterns.
+
+5. **Overall pattern** – the combination of moderate movement magnitudes, a near‑zero max‑X acceleration, a slightly positive gravity‑Z (upright but not fully static) and jerk values between the pure walking and upstairs extremes best matches the *Walking* class.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_26_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Is the person moving?**  
+   - `tBodyAccMag‑mean` = 0.114 and `tBodyAccMag‑std` = 0.147 are clearly positive and far from the –1 range that static activities (sitting, standing, laying) show.  
+   - `tBodyAcc‑max‑X` = 0.462 is also a large positive value, indicating strong acceleration in the X‑direction.  
+
+   ⇒ The subject is definitely **moving** (walking‑type activity).
+
+2. **Which walking type?**  
+   - In the reference data the only walking‑related class that shows a **positive** `tBodyAcc‑max‑X` is **Walking_Downstairs** (mean ≈ 0.39). All other walking classes have negative or near‑zero values.  
+   - The magnitude statistics (`tBodyAccMag‑mean` ≈ 0.03 for downstairs) are the highest among walking activities; our value (0.114) is even larger, reinforcing the “down‑stairs” pattern of higher acceleration.  
+
+3. **Gravity‑Z clue**  
+   - `tGravityAcc‑mean‑Z` = 0.154 is modestly positive. While the example for downstairs shows a slightly negative value, the gravity‑Z component can vary with the exact slope and sensor orientation. The dominant evidence from acceleration magnitude and direction outweighs this small discrepancy.
+
+**Conclusion**
+
+The sensor profile (high positive X‑acceleration, high body‑acceleration magnitude, clear movement) matches the pattern of **Walking_Downstairs**.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_26_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag-mean()` is –0.143 and the mean of `tBodyAccMag-std()` is –0.151.  
+   Values close to 0 (rather than around –0.9 to –1.0) indicate that the body is moving. So the activity is one of the walking‑type actions, not Sitting, Standing or Laying.
+
+2. **Posture** –  
+   `tGravityAcc-mean()-Z` is –0.002, essentially zero. A value near zero means the subject is upright (standing or walking) rather than sitting (positive) or lying (higher positive). This supports a walking activity.
+
+3. **Discriminating between walking, upstairs and downstairs** –  
+   * **Walking downstairs** shows a large positive `tBodyAcc-max()-X` (≈ 0.39) and a more negative gravity‑Z (≈ –0.06). Our `tBodyAcc-max()-X` is positive (0.14) but far smaller, and gravity‑Z is almost zero, so it does not match the downstairs pattern.  
+   * **Walking upstairs** has a negative `tBodyAcc-max()-X` (≈ –0.16). Our value is positive, so it does not fit upstairs.  
+   * **Regular walking** in the training data has a slightly negative or near‑zero `tBodyAcc-max()-X` (mean ≈ –0.11) and a gravity‑Z around –0.03. Our numbers are a bit more positive for `tBodyAcc-max()-X` but still much lower than the downstairs signature and the other features (body‑acc magnitude, std) are very close to the walking reference.
+
+4. **Overall match** –  
+   The combination of moderate positive `tBodyAcc-max()-X`, near‑zero gravity‑Z, and body‑acceleration magnitudes close to zero (but not strongly positive) best aligns with the **Walking** class.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_27_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag-mean()` is **‑0.97**, and the standard deviation is also very low (‑0.97). Such values are far below zero and indicate almost no body‑movement acceleration, which is characteristic of the *static* activities (Sitting, Laying, Standing).  
+
+2. **Posture (gravity Z)** –  
+   The mean of `tGravityAcc-mean()-Z` is **‑0.0056**, essentially around zero.  
+   - Laying → relatively high positive values (≈ 0.45).  
+   - Sitting → moderate positive values (≈ 0.33).  
+   - Standing → values close to zero (‑0.01 to +0.02).  
+
+   The observed value matches the standing pattern.
+
+3. **Other static‑activity cues** –  
+   - `tBodyAcc-max()-X` mean = ‑0.931, very close to the standing reference (‑0.939) and far from the slightly higher values seen for sitting (‑0.927) or laying (‑0.906).  
+   - The jitter/jerk statistic (`tBodyAccJerkMag-mean()`) is also near the static range (‑0.985), consistent with standing.
+
+All six features together align best with the **Standing** profile.
+
+**Prediction**
+
+**Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_29_Laying.txt
+True Label: Laying
+Predicted Label: Standing
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   - `tBodyAccMag-mean` ≈ ‑0.99 and `tBodyAccMag-std` ≈ ‑0.98 are both very close to ‑1, indicating almost no body movement. This rules out the walking‑related classes.
+
+2. **Static posture clues** –  
+   - `tBodyAcc-max‑X` (‑0.925) is in the range typical for sitting/standing rather than laying (‑0.90 ± 0.06).  
+   - `tBodyAccJerkMag‑mean` (‑0.9927) and the very low standard‑deviation values match the pattern observed for **standing** in the training data (‑0.992 ± 0.003,‑0.981 ± 0.032).
+
+3. **Gravity Z component** –  
+   - The gravity‑Z mean (0.590) is higher than the typical standing value (≈ 0), but it is still well above the sitting value (≈ 0.33) and far above the laying range (high variance). The low variance of the other features suggests the subject’s orientation is stable; the higher gravity‑Z can be explained by a slight tilt of the sensor while the person is upright.
+
+4. **Overall match** –  
+   - The combination of *very low movement* (body‑acc magnitude and jerk) with *static‑posture values* that align best with the standing reference points to **Standing**.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the activity **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_29_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is around **‑0.985**, which is far below 0 (the “‑1” bias for static). This low magnitude indicates almost no movement, typical of the static activities (standing, sitting, laying).
+
+2. **Posture** –  
+   *tGravityAcc‑mean‑Z* is **+0.032** (close to zero, slightly positive).  
+   - Laying shows a high positive value (~0.45).  
+   - Sitting shows a moderate positive value (~0.33).  
+   - Standing has a value near zero (≈0.02).  
+   The observed value matches the standing range.
+
+3. **Fine‑grained static signatures** –  
+   - *tBodyAcc‑max‑X* mean = **‑0.9395**, almost identical to the standing reference (‑0.9390) and much lower than sitting (‑0.927) or laying (‑0.906).  
+   - *tBodyAccMag‑std* and *tGravityAccMag‑std* are both ≈ ‑0.982, again matching the standing statistics (‑0.981).  
+   - *tBodyAccJerkMag‑mean* = **‑0.9908**, virtually the same as the standing mean (‑0.9922).
+
+All six feature summaries line up with the characteristic pattern of **Standing** and differ clearly from the patterns of Sitting, Laying, or any of the walking activities.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the activity **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_29_Walking.txt
+True Label: Walking
+Predicted Label: Walking
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean of `tBodyAccMag-mean()` is –0.095 (near 0) and the standard deviation `tBodyAccMag-std()` is –0.263.  
+   Values close to 0 (rather than –0.9 … –1.0) indicate that the subject is moving, so the activity is one of the walking types.
+
+2. **Distinguishing the walking sub‑classes**  
+
+   * **Walking‑Downstairs** – shows a *large positive* `tBodyAcc-max()-X` (≈ 0.39) and a *positive* `tBodyAccMag-mean()` (≈ 0.03). Our sample has a small positive `tBodyAcc-max()-X` (0.02) and a *negative* `tBodyAccMag-mean()` (–0.095), which does not match the downstairs pattern.  
+
+   * **Walking‑Upstairs** – has a more negative `tBodyAcc-max()-X` (≈ –0.16) and a larger negative `tBodyAccMag-std()` (≈ –0.33). Our `tBodyAcc-max()-X` is close to zero and the `tBodyAccMag-std()` (–0.263) is closer to the regular walking value.  
+
+   * **Regular Walking** – typically shows `tBodyAcc-max()-X` around –0.1 to a few‑hundredths of a unit, `tGravityAcc-mean()-Z` slightly negative to near zero, `tBodyAccMag-mean()` around –0.11, and `tBodyAccMag-std()` around –0.23.  
+
+   The observed statistics ( `tBodyAcc-max()-X` = 0.020, `tGravityAcc-mean()-Z` = 0.095, `tBodyAccMag-mean()` = –0.095, `tBodyAccMag-std()` = –0.263 ) fit best with the regular walking pattern – the magnitude and variability are moderate, not as high as downstairs nor as low/negative as upstairs.
+
+3. **Conclusion** – The feature values indicate a moving posture with moderate acceleration magnitude, matching the “Walking” class.
+
+**Predicted activity:** **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_2_Sitting.txt
+True Label: Sitting
+Predicted Label: Sitting
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of **tBodyAccMag‑mean** is –0.967  (well below 0, i.e., close to the “static” bias of –1).  
+   The same holds for **tBodyAccMag‑std**, **tGravityAccMag‑std** and **tBodyAccJerkMag‑mean**.  
+   Hence the subject is not walking; the activity is one of the static postures (Sitting, Standing, Laying).
+
+2. **Posture from gravity** –  
+   **tGravityAcc‑mean‑Z** = 0.199.  
+   * Laying → ≈ 0.45 (high, horizontal).  
+   * Sitting → ≈ 0.33 (moderately positive).  
+   * Standing → ≈ 0.02 (near zero, upright).  
+   The observed value is positive but well below the typical sitting mean; it is still far above the standing mean, so the posture is more “seated‑like” than upright.
+
+3. **Body‑acceleration magnitude** –  
+   * Sitting: tBodyAccMag‑mean ≈ –0.95, tBodyAccMag‑std ≈ –0.93.  
+   * Standing: tBodyAccMag‑mean ≈ –0.98, tBodyAccMag‑std ≈ –0.98.  
+   The current means (–0.968, –0.953) sit between the two, leaning a little toward the sitting range.
+
+4. **Max X‑acceleration** –  
+   **tBodyAcc‑max‑X** mean = –0.927, which matches the typical sitting value (–0.927) much better than standing (–0.939) or laying (–0.906).
+
+5. **Jerk magnitude** –  
+   **tBodyAccJerkMag‑mean** = –0.987, essentially identical to the sitting reference (–0.987).
+
+All six feature groups line up best with the statistical profile of the **Sitting** class.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Sitting** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_2_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving?**  
+   - `tBodyAccMag‑mean` = –0.107  (far from the static‑activity values around –0.9) → indicates movement.  
+
+2. **Posture / static‑vs‑dynamic check**  
+   - `tGravityAcc‑mean‑Z` = –0.196 , a clearly negative value (upright posture) → consistent with a dynamic activity (standing/walking) rather than sitting or lying.  
+
+3. **Distinguish among the dynamic classes**  
+
+| Feature | Walking (typical) | Walking Upstairs | Walking Downstairs | Observed |
+|--------|-------------------|------------------|--------------------|----------|
+| `tBodyAcc‑max‑X` (mean) | ≈ –0.11 (slightly negative) | ≈ –0.16 (more negative) | ≈ +0.39 (strongly positive) | **+0.056** (small positive, far below the large positive value of downstairs, and not as negative as upstairs) |
+| `tBodyAccJerkMag‑mean` | ≈ –0.15 | ≈ –0.47 | ≈ –0.09 | **–0.32** (more intense than normal walking, but much less than upstairs) |
+| `tGravityAcc‑mean‑Z` | ≈ –0.03 | ≈ –0.07 | ≈ –0.06 | **–0.20** (more negative than the typical walking range, but still within the range seen for walking on inclined surfaces) |
+| `tBodyAccMag‑mean` / `‑std` | ≈ –0.12 / –0.23 | ≈ –0.13 / –0.33 | ≈ +0.03 / +0.02 | **–0.11 / –0.21** (close to the walking values) |
+
+The pattern matches a **walking** activity:
+- The magnitude and variability of body acceleration are similar to ordinary walking.
+- The maximum X‑axis acceleration is only slightly positive, far below the large positive value characteristic of descending stairs.
+- The jerk magnitude is higher than flat walking but far below the strong values seen when climbing stairs.
+
+Hence, the most plausible label is **Walking**.  
+
+**Prediction:** **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_30_Sitting.txt
+True Label: Sitting
+Predicted Label: Walking
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the person moving?**  
+   – The mean of **tBodyAccMag‑mean()** is –0.957 (≈ –1).  
+   – The mean of **tBodyAccMag‑std()** is –0.943 (≈ –1).  
+
+   Values close to –1 indicate very little movement, which is typical for the *static* activities (sitting, standing, laying). So the activity is **not** walking, walking_upstairs or walking_downstairs.
+
+2. **Posture from gravity (vertical vs. horizontal).**  
+   – **tGravityAcc‑mean‑Z** = 0.345.  
+
+   In the training data:
+   * Laying → mean Z ≈ 0.44 (higher, more horizontal)  
+   * Sitting → mean Z ≈ 0.33 (moderately positive)  
+   * Standing → mean Z ≈ 0.02 (near zero, upright)
+
+   A value around 0.34 lies squarely in the sitting range and is far above the standing range, but below the typical laying value.
+
+3. **Supporting static‑activity features.**  
+   – **tBodyAcc‑max‑X** mean = –0.932.  
+       * Sitting: –0.927  
+       * Standing: –0.939  
+       * Laying: –0.906  
+
+   The observed –0.932 is between the sitting and standing values, much closer to the sitting mean.
+
+   – **tBodyAccMag‑mean** (–0.957) and **tBodyAccMag‑std** (–0.943) are also between the typical sitting (≈ –0.95) and standing (≈ –0.98) values, again favoring sitting.
+
+All six feature summaries align best with the statistical profile of **Sitting**.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the activity **Sitting**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_3_Sitting.txt
+True Label: Sitting
+Predicted Label: Laying
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAcc‑Mag‑mean* is –0.90, far below the values seen for any walking activity (which are close to 0 or slightly positive). This indicates the person is not moving, i.e., a static posture (lying, sitting, or standing).
+
+2. **Posture from gravity** –  
+   *tGravityAcc‑mean‑Z* has a positive mean of **0.14**.  
+   * • Laying* usually shows a high positive value (~0.44).  
+   * • Standing* is centred around 0 (≈0.02).  
+   * • Sitting* falls in between, around 0.33.  
+
+   The observed 0.14 is higher than typical standing but noticeably lower than typical sitting, suggesting a posture that is more upright than sitting but not fully upright – the closest labelled class is **Sitting** (the distribution’s larger spread also explains the lower average).
+
+3. **Supporting static‑activity signatures** –  
+   *tBodyAcc‑max‑X* (≈ –0.92) and the jerk/acceleration statistics all lie in the range common to the static activities (‑0.9 ± 0.05).  
+   Compared with the reference tables:
+   - Laying: tBodyAcc‑max‑X ≈ –0.91, tGravityAcc‑Z ≈ 0.45  
+   - Sitting: tBodyAcc‑max‑X ≈ –0.93, tGravityAcc‑Z ≈ 0.33  
+   - Standing: tBodyAcc‑max‑X ≈ –0.94, tGravityAcc‑Z ≈ 0.02  
+
+   The acceleration values match both sitting and laying, but the gravity‑Z value is far below the laying range and closer to the sitting range.
+
+4. **Overall match** –  
+   The combination of a clearly static acceleration profile with a modestly positive gravity‑Z mean best aligns with the **Sitting** class.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Sitting** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_3_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag-mean()` (‑0.06) and its standard deviation (‑0.04) are far from the very low values observed for static activities (standing, sitting, laying). This indicates the subject is moving.
+
+2. **Key discriminant – `tBodyAcc‑max()‑X`** –  
+   - Walking Downstairs: mean ≈ +0.39 (positive)  
+   - Walking Upstairs, Walking, Standing, Sitting, Laying: mean ≤ 0 (negative or near‑zero)  
+
+   The query’s `tBodyAcc‑max()‑X` has a mean of **+0.408**, clearly matching the pattern of *downstairs* walking.
+
+3. **Supporting features** –  
+   - `tGravityAcc‑mean()‑Z` is negative (‑0.102), consistent with a tilted posture typical for walking (both upstairs and downstairs) rather than the near‑zero value of standing.  
+   - `tBodyAccMag‑mean()` and `tBodyAccMag‑std()` are close to zero (‑0.06 and ‑0.04), which is also compatible with the higher‑movement profile of walking down stairs.  
+   - The jerk magnitude (`tBodyAccJerkMag‑mean()`) is more negative (‑0.205) than the typical downstairs value (‑0.089) but still far from the large negatives seen in walking upstairs (‑0.467) or walking (‑0.152). This intermediate value does not contradict the downstairs classification.
+
+Overall, the strongest indicator (`tBodyAcc‑max()‑X` positive and relatively large) points to the subject descending stairs.
+
+**Conclusion**
+
+The sensor data most likely represents the activity **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_3_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Upstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAcc‑max‑X* is around –0.15 and *tBodyAccMag‑mean* is –0.18. These values are far from the “‑0.9‑‑1.0” range seen for static activities (standing, sitting, laying) and indicate the subject is moving.
+
+2. **Level of movement** –  
+   The magnitude statistics (*tBodyAccMag‑mean/std* and *tBodyAccJerkMag‑mean*) are modestly negative (‑0.18, ‑0.33, ‑0.44). They are higher (closer to zero) than the very low values of standing/sitting, but lower than the more positive values typical of “walking downstairs” (which are around 0). This pattern matches the intermediate‑intensity movement seen for **walking upstairs**.
+
+3. **Posture indicator** –  
+   *tGravityAcc‑mean‑Z* is –0.163, a negative value indicating an upright posture (consistent with walking or standing). It is more negative than the slight negative values for ordinary walking (≈‑0.03) and walking downstairs (≈‑0.06), which aligns with the slightly more forward‑leaning posture often adopted when climbing stairs.
+
+4. **Comparison with known examples** –  
+   - Walking upstairs example:  
+     *tBodyAcc‑max‑X* ≈ –0.162, *tGravityAcc‑mean‑Z* ≈ –0.074, *tBodyAccMag‑mean* ≈ –0.130, *tBodyAccJerkMag‑mean* ≈ –0.467.  
+   - The queried sample shows very close values: *tBodyAcc‑max‑X* –0.154, *tBodyAccMag‑mean* –0.184, *tBodyAccJerkMag‑mean* –0.437.  
+   The small differences are within the variability seen across recordings.
+
+**Conclusion**
+
+The sensor statistics best match the pattern for **walking upstairs**.
+
+**Predicted activity:** **Walking_Upstairs**
+
+--------------------------------------------------------------------------------
+
+Query File: query_4_Laying.txt
+True Label: Laying
+Predicted Label: Walking_Upstairs
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is around **‑0.95** and *tBodyAcc‑max‑X* stays well below zero. These values are typical of **static** activities (sitting, standing, laying) and far from the positive‑or‑near‑zero values seen when walking, walking upstairs or downstairs.
+
+2. **Posture (gravity Z)** –  
+   *tGravityAcc‑mean‑Z* ≈ **0.34**.  
+   – Standing shows values close to 0 (≈ 0.02).  
+   – Walking activities have negative or near‑zero values.  
+   – Laying can be higher (≈ 0.45) but with a very large spread.  
+   – **Sitting** consistently yields a moderate positive mean around 0.33 with relatively low spread. The observed 0.34 fits this pattern best.
+
+3. **Static‑activity signatures** –  
+   *tBodyAccMag‑std* and *tGravityAccMag‑std* are both around **‑0.93**, matching the typical range for **sitting** (‑0.92 ± 0.02).  
+   *tBodyAccJerkMag‑mean* is –0.97, which lies between the lying (‑0.95) and sitting (‑0.99) values, but is closer to the sitting cluster.
+
+4. **Comparison with known profiles**  
+
+| Feature | Sitting (example) | Laying (example) | Standing (example) | Query |
+|---------|-------------------|------------------|--------------------|-------|
+| tBodyAcc‑max‑X (mean) | –0.927 | –0.906 | –0.939 | **–0.913** |
+| tGravityAcc‑mean‑Z (mean) | 0.332 | 0.446 | 0.017 | **0.342** |
+| tBodyAccMag‑mean | –0.949 | –0.842 | –0.984 | **–0.955** |
+| tBodyAccMag‑std | –0.927 | –0.795 | –0.981 | **–0.931** |
+| tBodyAccJerkMag‑mean | –0.987 | –0.954 | –0.992 | **–0.970** |
+
+The query values align most closely with the **Sitting** column.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Sitting** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_4_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is –0.05 and *tBodyAcc‑max‑X* has a positive mean of 0.32. These values are far from the “‑1” bias seen for static postures (sitting, standing, laying) and indicate the subject is moving.
+
+2. **Magnitude of movement** –  
+   The mean body‑acceleration magnitude (≈ 0) and its standard deviation (≈ ‑0.08) are much higher than the static activities (≈ ‑1) but lower than the strong‑movement pattern of walking upstairs (more negative). They are close to the pattern observed for **walking downstairs**, where the acceleration magnitude is near zero and the standard deviation is very small.
+
+3. **Direction‑specific feature** –  
+   *tBodyAcc‑max‑X* is positive (≈ 0.32). In the training data only **walking downstairs** shows a distinctly positive value for this feature (walking and walking upstairs have negative means).
+
+4. **Gravity‑Z** –  
+   The gravity‑Z mean (≈ 0.15) is modest; it is higher than the negative values typical for upright walking but still far below the high values of laying or sitting. This modest value is compatible with a transitional posture during stair descent.
+
+Putting these clues together, the sensor pattern best matches the **walking downstairs** profile.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_4_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAcc‑Mag‑mean* is –0.15, far from the –0.9 … –1.0 values that static activities (Laying, Sitting, Standing) show. This indicates the subject is moving.
+
+2. **Posture** –  
+   *tGravityAcc‑mean‑Z* = 0.084. Values near zero (slightly positive) correspond to an upright posture (standing or walking). It is far below the high positive values seen for Laying (≈ 0.45) and Sitting (≈ 0.33), confirming the subject is not lying or sitting.
+
+3. **Magnitude of movement** –  
+   *tBodyAcc‑max‑X* = 0.055. This is a small positive value, well within the range observed for ordinary walking (‑0.29 … 0.15) and also within the range for Walking‑Upstairs, but far below the large positive values typical of Walking‑Downstairs (≈ 0.4 … 0.6).  
+
+   *tBodyAcc‑Mag‑std* = –0.212 and *tBodyAcc‑Jerk‑Mag‑mean* = –0.401 are close to the values reported for normal Walking (‑0.23 … ‑0.15) and a little less extreme than those for Walking‑Upstairs (‑0.33 … ‑0.47).
+
+4. **Putting it together** –  
+   The data show clear movement, an upright posture, and a moderate acceleration magnitude that matches the “Walking” profile rather than the higher‑intensity patterns of Walking‑Downstairs or the slightly higher‑intensity pattern of Walking‑Upstairs.
+
+**Conclusion**
+
+The sensor reading most likely corresponds to **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_5_Laying.txt
+True Label: Laying
+Predicted Label: Sitting
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean of **tBodyAcc‑max‑X** is –0.92, a strongly negative value.  
+   All *walking* activities (walking, walking upstairs, walking downstairs) have values near zero or positive, while static activities (sitting, standing, laying) have values around –0.9 to –0.94. Hence the subject is not moving; it is a static posture.
+
+2. **Posture from gravity** – The mean of **tGravityAcc‑mean‑Z** is **0.2636**.  
+   *Standing* is characterized by a value close to 0 (≈0.02), *sitting* by a moderate positive value (≈0.33), and *laying* by a higher value (≈0.45). The observed 0.26 lies between standing and sitting, but is much closer to the typical sitting range than to the very low standing value.
+
+3. **Body‑acceleration magnitude** –  
+   *tBodyAccMag‑mean* = –0.9668 and *tBodyAccMag‑std* = –0.9586.  
+   For static activities the values are near –1.0.  
+   – Laying: around –0.84 (higher)  
+   – Sitting: around –0.95  
+   – Standing: around –0.98  
+
+   The query’s values sit between the sitting and standing clusters, again leaning toward the sitting cluster.
+
+4. **Overall consistency** – All six features (max‑X, gravity‑Z, magnitude mean & std, jerk‑mean) align best with the statistical profile that has been shown for **Sitting** in the training description.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Sitting** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_5_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag‑mean` is **+0.21**, far above the near‑‑1 values seen for static activities (sitting, standing, laying). This indicates the subject is moving.
+
+2. **Posture** –  
+   `tGravityAcc‑mean‑Z` ≈ 0.02, close to zero, which corresponds to an upright posture (standing or walking) rather than the higher values of sitting/laying.
+
+3. **Distinguishing walking types** –  
+   - `tBodyAcc‑max‑X` is **positive and relatively large** (0.52). In the training data only *walking downstairs* showed a positive, high value; walking and walking upstairs had negative or near‑zero means.  
+   - `tBodyAccMag‑mean` (0.21) and its std (0.20) are higher than those for normal walking (≈ ‑0.12) and walking upstairs (≈ ‑0.13), matching the pattern that *downstairs* yields the highest acceleration magnitudes.  
+   - `tBodyAccJerkMag‑mean` (‑0.06) is close to the downstairs example (‑0.09) and much less negative than the values for upstairs (‑0.47) or flat walking (‑0.15).
+
+All indicators point to the activity with the strongest, positive X‑axis acceleration and the largest overall magnitude – **walking downstairs**.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_6_Walking.txt
+True Label: Walking
+Predicted Label: Walking
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   - `tBodyAccMag‑mean` is –0.166, far from the very low values (≈ –0.9) seen for static postures (standing, sitting, laying).  
+   - `tBodyAccMag‑std` (≈ –0.267) and `tBodyAccJerkMag‑mean` (≈ –0.195) are also well above the static‑activity values and fall in the range observed for walking‑related activities.
+
+2. **Distinguishing walking, upstairs, downstairs** –  
+   - For **downstairs** the acceleration magnitude is positive (≈ +0.03) and `tBodyAcc‑max‑X` is strongly positive (≈ +0.39). Our sample shows negative‑ish `tBodyAcc‑max‑X` (≈ –0.014) and a negative `tBodyAccMag‑mean`, so it is not downstairs.  
+   - For **upstairs** the values tend to be more negative than ordinary walking (e.g., `tBodyAccMag‑mean` ≈ –0.13, `tBodyAccJerkMag‑mean` ≈ –0.47). The present sample is less negative (‑0.166, ‑0.195) and closer to the typical walking range.  
+   - For **ordinary walking** the characteristic ranges are:  
+     * `tBodyAcc‑max‑X` around –0.11 ± 0.10,  
+     * `tGravityAcc‑mean‑Z` around –0.03 ± 0.02 (can occasionally be slightly positive),  
+     * `tBodyAccMag‑mean` around –0.12 ± 0.07,  
+     * `tBodyAccJerkMag‑mean` around –0.15 ± 0.07.  
+
+   The query’s statistics match these walking ranges much better than those of the other classes.
+
+3. **Gravity Z component** –  
+   - `tGravityAcc‑mean‑Z` is +0.033, a small positive number. While walking examples usually have a slight negative mean, the variation (‑0.124 to ‑0.014 in the 25‑75 % range) allows occasional small positive values, especially when the subject’s posture is nearly upright. This does not contradict a walking label.
+
+**Conclusion**
+
+The sensor profile indicates moderate, regular body movement with acceleration magnitudes typical of normal walking and does not show the stronger signals of stairs or the near‑zero signals of static postures.
+
+**Predicted activity:** **Walking**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_7_Sitting.txt
+True Label: Sitting
+Predicted Label: Standing
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving?**  
+   - The mean of **tBodyAccMag‑mean()** is –0.918 and the mean of **tBodyAccMag‑std()** is –0.882.  
+   - These values are far below the “movement” region (≈ 0 to +0.2) that we see for walking activities and are instead in the same range as the static classes (Laying, Sitting, Standing).  
+   - Thus the subject is **static**.
+
+2. **Posture (gravity‑Z)** – this tells us whether the static posture is lying, sitting or standing.  
+   - **tGravityAcc‑mean‑Z** = 0.0649.  
+   - For the reference classes:  
+        * Laying ≈ 0.44 (high, horizontal)  
+        * Sitting ≈ 0.33 (mid‑range)  
+        * Standing ≈ 0.02 ± 0.05 (close to zero, upright)  
+   - 0.065 is much closer to the standing value than to sitting or laying. It indicates an almost‑upright orientation.
+
+3. **Support from other static‑movement features**  
+   - **tBodyAcc‑max‑X** has a mean of –0.907 with a maximum of –0.399. The spread is a little larger than in pure standing recordings, but still well within the static range (no large positive peaks that would signal walking).  
+   - **tBodyAccJerkMag‑mean** = –0.976, which matches the low‑jerk values seen for static postures (standing ≈ –0.992, sitting ≈ –0.987, laying ≈ –0.954).  
+
+All the evidence points to a **static, upright** posture.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_7_Standing.txt
+True Label: Standing
+Predicted Label: Standing
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag-mean()` is **‑0.94**, which is far below 0 and close to the values observed for *static* activities (sitting, standing, laying). The other dynamic activities (walking, walking‑upstairs, walking‑downstairs) have means near 0 or slightly positive. Hence the subject is not moving.
+
+2. **Posture (gravity Z‑axis)** –  
+   - Laying: tGravityAcc‑mean‑Z ≈ +0.44 (high, horizontal)  
+   - Sitting: ≈ +0.33 (moderate)  
+   - Standing: ≈ 0 (near‑zero, upright)  
+
+   The reported mean for `tGravityAcc-mean()-Z` is **‑0.05**, essentially around zero (slightly negative). This matches the upright posture of **standing**, not the positive values seen for sitting or laying.
+
+3. **Other static‑activity cues** –  
+   The `tBodyAcc-max()-X` mean (‑0.918) and the standard‑deviation‑based features (`tBodyAccMag-std`, `tGravityAccMag-std`) are all in the same range as the standing reference (‑0.939 ± 0.007 for `tBodyAcc-max()-X`).  
+
+Putting the evidence together, the sensor profile aligns best with the **standing** posture.
+
+**Predicted activity:** **Standing**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_7_Walking_Downstairs.txt
+True Label: Walking_Downstairs
+Predicted Label: Walking_Downstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** – The mean of `tBodyAccMag-mean()` is close to zero (0.02) and the standard deviation is positive (0.21). This indicates the subject is moving; static activities (sitting, standing, laying) have values around –1.
+
+2. **Posture** – `tGravityAcc-mean()-Z` is –0.15, a fairly negative value. Negative values correspond to upright postures (walking, walking upstairs, walking downstairs). It is more negative than the typical walking value (≈ –0.03) and similar to the values seen for stair activities (≈ –0.06 to –0.07).
+
+3. **Maximum X‑axis acceleration** – The mean of `tBodyAcc-max()-X` is **+0.49**, a distinctly positive and relatively large value. In the reference data:
+   * Walking downstairs shows a **positive** max‑X (≈ +0.39).
+   * Walking upstairs and all level‑ground activities show **negative** or near‑zero max‑X.
+   Hence a large positive max‑X strongly points to “walking downstairs”.
+
+4. **Other magnitude statistics** – Both `tBodyAccMag-std()` and `tGravityAccMag-std()` are positive and sizable (≈ 0.21), consistent with the higher variability observed during stair descent.
+
+Putting these clues together, the pattern matches the “Walking Downstairs” profile most closely.
+
+**Predicted activity:** **Walking_Downstairs**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_8_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is –0.935, a value typical of **static** activities (lying, sitting, standing). It is far from the positive/near‑zero values seen in walking (‑0.11 ~ 0.03).
+
+2. **Posture clue** –  
+   *tGravityAcc‑mean‑Z* is **0.72**, a relatively high positive number. High values of this feature indicate the body is oriented more horizontally, which is characteristic of **laying** (the example for laying had a mean of 0.45, while sitting is ~0.33 and standing is near 0).
+
+3. **Other static‑activity signatures** –  
+   *tBodyAcc‑max‑X* (‑0.90) is slightly higher (less negative) than the typical sitting (‑0.93) or standing (‑0.94) values and matches the laying example (‑0.91).  
+   *tBodyAccMag‑std* (‑0.91) and *tBodyAccJerkMag‑mean* (‑0.97) are also within the ranges observed for laying.
+
+Putting the high gravity‑Z value together with the static‑activity magnitude values points to the subject being in a horizontal posture rather than upright.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Laying** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_8_Sitting.txt
+True Label: Sitting
+Predicted Label: Sitting
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is about **‑0.95** and *tBodyAccMag‑std* around **‑0.93**. These values are far below 0, indicating almost no movement, which points to a **static activity** (standing, sitting, or laying).
+
+2. **Posture from gravity** –  
+   *tGravityAcc‑mean‑Z* has a mean of **0.264**.  
+   *‑ Standing* typically has a mean close to 0 (≈ 0.02).  
+   *‑ Laying* shows a higher mean (≈ 0.45).  
+   *‑ Sitting* falls in between, around 0.33 with a fairly wide spread.  
+   The observed 0.264 lies much nearer the sitting range than the standing or laying ranges.
+
+3. **Fine‑grained static signatures** –  
+   *tBodyAcc‑max‑X* mean = **‑0.927**, standard deviation ≈ 0.035.  
+   This matches the **sitting** profile (‑0.927 ± 0.044) and is less negative than the standing profile (‑0.939 ± 0.007).  
+
+   *tBodyAccJerkMag‑mean* = **‑0.986**, also very close to the sitting value (‑0.987) and a bit higher than the standing value (‑0.992).
+
+4. **Overall consistency** –  
+   All six feature statistics line up with the patterns described for the **Sitting** class:
+   * low movement magnitude,
+   * moderate positive gravity‑Z mean,
+   * tBodyAcc‑max‑X and jerk values matching sitting’s typical range.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Sitting** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_8_Standing.txt
+True Label: Standing
+Predicted Label: Sitting
+Correct: No
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is –0.95, which is very close to the “static” value (‑1). This tells us the subject is not moving, so the activity must be one of the static postures (Sitting, Standing, Laying).
+
+2. **Posture from gravity** –  
+   *tGravityAcc‑mean‑Z* is –0.10.  
+   – Laying: positive (≈ 0.45) → not laying.  
+   – Sitting: clearly positive (≈ 0.33) → our value is far from that.  
+   – Standing: around zero (≈ 0.02) with low spread. Our value is a bit more negative, but still close to zero, so standing is plausible.
+
+3. **Variability of body‑acceleration** –  
+   *tBodyAcc‑max‑X* has mean = ‑0.93 and a relatively large std = 0.03.  
+   – Standing shows a very tight spread (std ≈ 0.007).  
+   – Sitting shows a larger spread (std ≈ 0.04).  
+   Our variability matches the sitting pattern better than standing.
+
+4. **Jerk magnitude** –  
+   *tBodyAccJerkMag‑mean* is –0.985, which sits between the typical sitting value (≈ ‑0.987) and the standing value (≈ ‑0.992). It is much higher than the laying value (≈ ‑0.954). This again points toward a sitting‑like posture.
+
+5. **Overall match** –  
+   Combining the static‑movement indicator, the moderate gravity‑Z value, and the variability levels, the profile aligns best with the **Sitting** class. It is more variable than standing, yet far from the horizontal posture of laying, and the body‑acceleration magnitude is clearly in the static range.
+
+**Conclusion**
+
+The sensor data most likely corresponds to **Sitting**.
+
+--------------------------------------------------------------------------------
+
+Query File: query_9_Laying.txt
+True Label: Laying
+Predicted Label: Laying
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   The mean of `tBodyAccMag‑mean()` is **‑0.93**, which is well within the low‑range values seen for static activities (sitting, standing, laying). The dynamic activities (walking, walking‑upstairs, walking‑downstairs) have values near 0 or positive, so the subject is not moving.
+
+2. **Posture – gravity Z component** –  
+   `tGravityAcc‑mean‑Z` has a mean of **0.958**, a very high positive value. According to the description, a high Z‑gravity mean indicates a horizontal posture, i.e., the person is **laying down**.  
+   - Sitting: ~0.33  
+   - Standing: ~0.0  
+   - Laying: high (approaching 1)  
+
+3. **Other static‑activity cues** –  
+   - `tBodyAcc‑max‑X` (‑0.887) is between the typical laying (‑0.906) and sitting (‑0.927) values, consistent with a relatively relaxed posture.  
+   - `tBodyAccMag‑std` (‑0.915) and `tGravityAccMag‑std` (‑0.915) are close to the sitting/laying range and far from the very low standing value (‑0.98).  
+   - `tBodyAccJerkMag‑mean` (‑0.963) sits between the laying (‑0.954) and sitting (‑0.987) averages, again indicating a static, low‑movement state.
+
+All indicators point to a static activity with a highly horizontal orientation, which matches the **Laying** class.
+
+**Prediction**
+
+**Laying**
+
+--------------------------------------------------------------------------------
+
+Query File: query_9_Walking.txt
+True Label: Walking
+Predicted Label: Walking
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Movement vs. static** –  
+   *tBodyAccMag‑mean* is around ‑0.10, close to zero. Static activities (Sitting, Standing, Laying) have values near ‑0.9 to ‑1.0. Hence the subject is moving.
+
+2. **Posture** –  
+   *tGravityAcc‑mean‑Z* is –0.12, a negative value indicating an upright posture (walking or standing). Sitting and Laying would give a positive Z‑mean; Standing would be near zero. So we are dealing with a walking‑type activity.
+
+3. **Comparing to the known patterns**  
+
+| Feature | Walking (reference) | Walking Upstairs | Walking Downstairs | Query |
+|---------|---------------------|------------------|--------------------|-------|
+| tBodyAcc‑max‑X (mean) | –0.109 | –0.162 | +0.389 | **–0.106** (closest to Walking) |
+| tGravityAcc‑mean‑Z (mean) | –0.033 | –0.074 | –0.062 | –0.116 (a bit more negative but still in the walking range) |
+| tBodyAccMag‑mean | –0.118 | –0.130 | +0.027 | **–0.098** (closest to Walking) |
+| tBodyAccMag‑std | –0.232 | –0.329 | +0.020 | –0.379 (slightly larger variation, still nearer to Walking than Upstairs) |
+| tBodyAccJerkMag‑mean | –0.152 | –0.467 | –0.089 | –0.204 (between Walking and Upstairs, but far from the very negative Upstairs value) |
+
+The query’s feature values match the **Walking** profile far better than the profiles for Walking Upstairs, Walking Downstairs, or any static activity.
+
+**Conclusion**
+
+The sensor data most likely corresponds to the **Walking** activity.
+
+--------------------------------------------------------------------------------
+
+Query File: query_9_Walking_Upstairs.txt
+True Label: Walking_Upstairs
+Predicted Label: Walking_Upstairs
+Correct: Yes
+
+Full Response:
+**Reasoning**
+
+1. **Is the subject moving?**  
+   - `tBodyAccMag‑mean` = –0.260 (way higher than the static‑activity values of ~‑0.9 to ‑1.0).  
+   - `tBodyAccMag‑std` = –0.400 (and `tGravityAccMag‑std` the same) are also far from the static‑activity range, indicating motion.
+
+2. **Which type of motion?**  
+   - For *walking downstairs* the acceleration‑magnitude mean is **positive** (≈ +0.03). Our value is negative, so it is **not** downstairs.  
+   - For *walking* the mean is around –0.12 and the jerk‑mean around –0.15.  
+   - For *walking upstairs* the jerk‑mean is more negative (≈ –0.47) and the acceleration‑magnitude mean a bit more negative (≈ –0.13).  
+
+   Our jerk‑mean (‑0.44) is close to the upstairs pattern, and the gravity‑Z mean (‑0.27) is more negative than ordinary walking, consistent with the extra forward‑lean when climbing.
+
+3. **Conclusion**  
+   The combination of moderate‑negative acceleration magnitude, a relatively large negative jerk magnitude, and a strongly negative gravity‑Z component best matches the **walking upstairs** signature described in the training examples.
+
+**Predicted activity:** **Walking_Upstairs**.
+
+--------------------------------------------------------------------------------
+

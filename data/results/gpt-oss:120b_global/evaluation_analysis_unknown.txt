@@ -1,0 +1,278 @@
+================================================================================
+GraphRAG Evaluation Results - Detailed Analysis
+Focus: Unknown Rate and Accuracy Excluding Unknown
+================================================================================
+
+OVERALL STATISTICS
+================================================================================
+
+Total Queries: 60
+Answered (LLM provided prediction): 51
+Unknown (LLM could not answer): 9
+
+Unknown Rate: 15.00%
+Answer Rate: 85.00%
+
+--------------------------------------------------------------------------------
+
+ACCURACY METRICS
+================================================================================
+
+1. Accuracy INCLUDING Unknown (Unknown = Incorrect):
+   Correct: 12/60
+   Accuracy: 20.00%
+
+2. Accuracy EXCLUDING Unknown (Only Answered Queries):
+   Correct: 12/51
+   Accuracy: 23.53%
+
+Improvement when excluding Unknown: 3.53%
+
+--------------------------------------------------------------------------------
+
+PER-ACTIVITY ANALYSIS
+================================================================================
+
+Activity             Total    Answered   Unknown    Correct    Acc (all)    Acc (ans)   
+--------------------------------------------------------------------------------
+Laying               10       9          1          0          0.0        % 0.0        %
+Sitting              10       8          2          1          10.0       % 12.5       %
+Standing             10       10         0          3          30.0       % 30.0       %
+Walking              10       7          3          3          30.0       % 42.9       %
+Walking_Downstairs   10       8          2          5          50.0       % 62.5       %
+Walking_Upstairs     10       9          1          0          0.0        % 0.0        %
+
+--------------------------------------------------------------------------------
+
+UNKNOWN QUERIES (LLM Could Not Answer)
+================================================================================
+
+Total Unknown: 9
+
+Laying:
+  - query_8_Laying.txt
+
+Sitting:
+  - query_30_Sitting.txt
+  - query_8_Sitting.txt
+
+Walking:
+  - query_25_Walking.txt
+  - query_26_Walking.txt
+  - query_29_Walking.txt
+
+Walking_Downstairs:
+  - query_13_Walking_Downstairs.txt
+  - query_7_Walking_Downstairs.txt
+
+Walking_Upstairs:
+  - query_3_Walking_Upstairs.txt
+
+--------------------------------------------------------------------------------
+
+CORRECT PREDICTIONS (Answered Queries Only)
+================================================================================
+
+Total Correct (Answered): 12
+
+Sitting: 1 correct
+  - query_20_Sitting.txt
+
+Standing: 3 correct
+  - query_15_Standing.txt
+  - query_29_Standing.txt
+  - query_7_Standing.txt
+
+Walking: 3 correct
+  - query_11_Walking.txt
+  - query_14_Walking.txt
+  - query_6_Walking.txt
+
+Walking_Downstairs: 5 correct
+  - query_11_Walking_Downstairs.txt
+  - query_22_Walking_Downstairs.txt
+  - query_26_Walking_Downstairs.txt
+  - query_4_Walking_Downstairs.txt
+  - query_5_Walking_Downstairs.txt
+
+--------------------------------------------------------------------------------
+
+INCORRECT PREDICTIONS (Answered Queries Only)
+================================================================================
+
+Total Incorrect (Answered): 39
+
+File: query_12_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_13_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_14_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_14_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_15_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Laying
+
+File: query_17_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_18_Laying.txt
+  True: Laying
+  Predicted: Sitting
+
+File: query_18_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_18_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_19_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_19_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_1_Laying.txt
+  True: Laying
+  Predicted: Sitting
+
+File: query_1_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_1_Standing.txt
+  True: Standing
+  Predicted: Walking
+
+File: query_1_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_20_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_21_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_21_Standing.txt
+  True: Standing
+  Predicted: Walking
+
+File: query_23_Standing.txt
+  True: Standing
+  Predicted: Walking
+
+File: query_23_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_24_Laying.txt
+  True: Laying
+  Predicted: Sitting
+
+File: query_24_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_25_Laying.txt
+  True: Laying
+  Predicted: Walking
+
+File: query_25_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Sitting
+
+File: query_26_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking_Downstairs
+
+File: query_27_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_29_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_2_Sitting.txt
+  True: Sitting
+  Predicted: Walking
+
+File: query_2_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_3_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_3_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_4_Laying.txt
+  True: Laying
+  Predicted: Sitting
+
+File: query_4_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Laying
+
+File: query_5_Laying.txt
+  True: Laying
+  Predicted: Standing
+
+File: query_7_Sitting.txt
+  True: Sitting
+  Predicted: Standing
+
+File: query_8_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_9_Laying.txt
+  True: Laying
+  Predicted: Walking
+
+File: query_9_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_9_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+--------------------------------------------------------------------------------
+
+SUMMARY
+================================================================================
+
+Total Queries: 60
+Unknown Rate: 15.00% (9 queries)
+Answer Rate: 85.00% (51 queries)
+
+Accuracy (including Unknown as incorrect): 20.00%
+Accuracy (excluding Unknown): 23.53%
+
+When LLM provides an answer, accuracy is 23.53%
+The Unknown rate of 15.00% indicates 9 queries where GraphRAG could not find relevant information.
+
+================================================================================
+END OF ANALYSIS
+================================================================================

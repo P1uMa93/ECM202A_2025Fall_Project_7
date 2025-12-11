@@ -1,0 +1,733 @@
+================================================================================
+GraphRAG Evaluation Results - Detailed Analysis
+Focus: Unknown Rate and Accuracy Excluding Unknown
+================================================================================
+
+OVERALL STATISTICS
+================================================================================
+
+Total Queries: 180
+Answered (LLM provided prediction): 174
+Unknown (LLM could not answer): 6
+
+Unknown Rate: 3.33%
+Answer Rate: 96.67%
+
+--------------------------------------------------------------------------------
+
+ACCURACY METRICS
+================================================================================
+
+1. Accuracy INCLUDING Unknown (Unknown = Incorrect):
+   Correct: 24/180
+   Accuracy: 13.33%
+
+2. Accuracy EXCLUDING Unknown (Only Answered Queries):
+   Correct: 24/174
+   Accuracy: 13.79%
+
+Improvement when excluding Unknown: 0.46%
+
+--------------------------------------------------------------------------------
+
+PER-ACTIVITY ANALYSIS
+================================================================================
+
+Activity             Total    Answered   Unknown    Correct    Acc (all)    Acc (ans)   
+--------------------------------------------------------------------------------
+Laying               30       28         2          2          6.7        % 7.1        %
+Sitting              30       30         0          1          3.3        % 3.3        %
+Standing             30       28         2          5          16.7       % 17.9       %
+Walking              30       30         0          6          20.0       % 20.0       %
+Walking_Downstairs   30       29         1          7          23.3       % 24.1       %
+Walking_Upstairs     30       29         1          3          10.0       % 10.3       %
+
+--------------------------------------------------------------------------------
+
+UNKNOWN QUERIES (LLM Could Not Answer)
+================================================================================
+
+Total Unknown: 6
+
+Laying:
+  - query_14_Laying.txt
+  - query_7_Laying.txt
+
+Standing:
+  - query_25_Standing.txt
+  - query_29_Standing.txt
+
+Walking_Downstairs:
+  - query_20_Walking_Downstairs.txt
+
+Walking_Upstairs:
+  - query_25_Walking_Upstairs.txt
+
+--------------------------------------------------------------------------------
+
+CORRECT PREDICTIONS (Answered Queries Only)
+================================================================================
+
+Total Correct (Answered): 24
+
+Laying: 2 correct
+  - query_20_Laying.txt
+  - query_9_Laying.txt
+
+Sitting: 1 correct
+  - query_10_Sitting.txt
+
+Standing: 5 correct
+  - query_13_Standing.txt
+  - query_14_Standing.txt
+  - query_18_Standing.txt
+  - query_24_Standing.txt
+  - query_8_Standing.txt
+
+Walking: 6 correct
+  - query_17_Walking.txt
+  - query_21_Walking.txt
+  - query_22_Walking.txt
+  - query_26_Walking.txt
+  - query_27_Walking.txt
+  - query_2_Walking.txt
+
+Walking_Downstairs: 7 correct
+  - query_10_Walking_Downstairs.txt
+  - query_17_Walking_Downstairs.txt
+  - query_19_Walking_Downstairs.txt
+  - query_22_Walking_Downstairs.txt
+  - query_2_Walking_Downstairs.txt
+  - query_7_Walking_Downstairs.txt
+  - query_8_Walking_Downstairs.txt
+
+Walking_Upstairs: 3 correct
+  - query_11_Walking_Upstairs.txt
+  - query_28_Walking_Upstairs.txt
+  - query_6_Walking_Upstairs.txt
+
+--------------------------------------------------------------------------------
+
+INCORRECT PREDICTIONS (Answered Queries Only)
+================================================================================
+
+Total Incorrect (Answered): 150
+
+File: query_10_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_10_Standing.txt
+  True: Standing
+  Predicted: Walking_Upstairs
+
+File: query_10_Walking.txt
+  True: Walking
+  Predicted: Laying
+
+File: query_10_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking
+
+File: query_11_Laying.txt
+  True: Laying
+  Predicted: Walking
+
+File: query_11_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_11_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_11_Walking.txt
+  True: Walking
+  Predicted: Sitting
+
+File: query_11_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_12_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_12_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_12_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_12_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_12_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_12_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_13_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_13_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_13_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_13_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_13_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_14_Sitting.txt
+  True: Sitting
+  Predicted: Walking
+
+File: query_14_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_14_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking_Upstairs
+
+File: query_14_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_15_Laying.txt
+  True: Laying
+  Predicted: Walking
+
+File: query_15_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_15_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_15_Walking.txt
+  True: Walking
+  Predicted: Sitting
+
+File: query_15_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_15_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking_Downstairs
+
+File: query_16_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_16_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_16_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_16_Walking.txt
+  True: Walking
+  Predicted: Walking_Upstairs
+
+File: query_16_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_16_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_17_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_17_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_17_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_17_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking
+
+File: query_18_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_18_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_18_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_18_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_18_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_19_Laying.txt
+  True: Laying
+  Predicted: Walking_Upstairs
+
+File: query_19_Sitting.txt
+  True: Sitting
+  Predicted: Walking
+
+File: query_19_Standing.txt
+  True: Standing
+  Predicted: Walking
+
+File: query_19_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_19_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Sitting
+
+File: query_1_Laying.txt
+  True: Laying
+  Predicted: Walking_Upstairs
+
+File: query_1_Sitting.txt
+  True: Sitting
+  Predicted: Walking
+
+File: query_1_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_1_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_1_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_1_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_20_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_20_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_20_Walking.txt
+  True: Walking
+  Predicted: Sitting
+
+File: query_20_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_21_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_21_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_21_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_21_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_21_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_22_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_22_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_22_Standing.txt
+  True: Standing
+  Predicted: Sitting
+
+File: query_22_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking_Downstairs
+
+File: query_23_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_23_Sitting.txt
+  True: Sitting
+  Predicted: Standing
+
+File: query_23_Standing.txt
+  True: Standing
+  Predicted: Laying
+
+File: query_23_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_23_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_23_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Sitting
+
+File: query_24_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_24_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_24_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_24_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Standing
+
+File: query_24_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_25_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_25_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_25_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_25_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_26_Laying.txt
+  True: Laying
+  Predicted: Walking_Upstairs
+
+File: query_26_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_26_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_26_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_26_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking_Downstairs
+
+File: query_27_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_27_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_27_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_27_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_27_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_28_Laying.txt
+  True: Laying
+  Predicted: Standing
+
+File: query_28_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Upstairs
+
+File: query_28_Standing.txt
+  True: Standing
+  Predicted: Walking_Upstairs
+
+File: query_28_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_28_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_29_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_29_Sitting.txt
+  True: Sitting
+  Predicted: Standing
+
+File: query_29_Walking.txt
+  True: Walking
+  Predicted: Walking_Downstairs
+
+File: query_29_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_29_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_2_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_2_Sitting.txt
+  True: Sitting
+  Predicted: Walking
+
+File: query_2_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_2_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Sitting
+
+File: query_30_Laying.txt
+  True: Laying
+  Predicted: Walking_Downstairs
+
+File: query_30_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_30_Standing.txt
+  True: Standing
+  Predicted: Walking_Upstairs
+
+File: query_30_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_30_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_30_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking_Downstairs
+
+File: query_3_Laying.txt
+  True: Laying
+  Predicted: Standing
+
+File: query_3_Sitting.txt
+  True: Sitting
+  Predicted: Walking
+
+File: query_3_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_3_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_3_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_3_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Sitting
+
+File: query_4_Laying.txt
+  True: Laying
+  Predicted: Sitting
+
+File: query_4_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_4_Standing.txt
+  True: Standing
+  Predicted: Sitting
+
+File: query_4_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_4_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Laying
+
+File: query_4_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_5_Laying.txt
+  True: Laying
+  Predicted: Walking
+
+File: query_5_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_5_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_5_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_5_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_5_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Laying
+
+File: query_6_Laying.txt
+  True: Laying
+  Predicted: Standing
+
+File: query_6_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_6_Standing.txt
+  True: Standing
+  Predicted: Walking
+
+File: query_6_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_6_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking
+
+File: query_7_Sitting.txt
+  True: Sitting
+  Predicted: Standing
+
+File: query_7_Standing.txt
+  True: Standing
+  Predicted: Walking_Downstairs
+
+File: query_7_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_7_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_8_Laying.txt
+  True: Laying
+  Predicted: Standing
+
+File: query_8_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_8_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_8_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Standing
+
+File: query_9_Sitting.txt
+  True: Sitting
+  Predicted: Walking_Downstairs
+
+File: query_9_Standing.txt
+  True: Standing
+  Predicted: Walking
+
+File: query_9_Walking.txt
+  True: Walking
+  Predicted: Standing
+
+File: query_9_Walking_Downstairs.txt
+  True: Walking_Downstairs
+  Predicted: Walking_Upstairs
+
+File: query_9_Walking_Upstairs.txt
+  True: Walking_Upstairs
+  Predicted: Walking_Downstairs
+
+--------------------------------------------------------------------------------
+
+SUMMARY
+================================================================================
+
+Total Queries: 180
+Unknown Rate: 3.33% (6 queries)
+Answer Rate: 96.67% (174 queries)
+
+Accuracy (including Unknown as incorrect): 13.33%
+Accuracy (excluding Unknown): 13.79%
+
+When LLM provides an answer, accuracy is 13.79%
+The Unknown rate of 3.33% indicates 6 queries where GraphRAG could not find relevant information.
+
+================================================================================
+END OF ANALYSIS
+================================================================================

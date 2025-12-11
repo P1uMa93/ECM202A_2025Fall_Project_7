@@ -1,0 +1,238 @@
+================================================================================
+Per-Activity Accuracy Analysis
+GraphRAG Human Activity Recognition Evaluation
+================================================================================
+
+ACCURACY SUMMARY BY ACTIVITY
+================================================================================
+
+Activity                  Total    Correct    Incorrect    Unknown    Accuracy  
+--------------------------------------------------------------------------------
+Walking                   10       3          7            0          30.00    %
+Walking_Upstairs          10       2          8            0          20.00    %
+Walking_Downstairs        10       6          4            0          60.00    %
+Sitting                   10       5          5            0          50.00    %
+Standing                  10       4          6            0          40.00    %
+Laying                    10       6          4            0          60.00    %
+--------------------------------------------------------------------------------
+OVERALL                   60       26         34           --         43.33    %
+
+================================================================================
+
+ACTIVITIES RANKED BY ACCURACY
+================================================================================
+
+Rank     Activity                  Accuracy     Correct/Total  
+--------------------------------------------------------------------------------
+1        Walking_Downstairs        60.00      % 6/10
+2        Laying                    60.00      % 6/10
+3        Sitting                   50.00      % 5/10
+4        Standing                  40.00      % 4/10
+5        Walking                   30.00      % 3/10
+6        Walking_Upstairs          20.00      % 2/10
+
+================================================================================
+
+DETAILED PER-ACTIVITY BREAKDOWN
+================================================================================
+
+Activity: Walking
+--------------------------------------------------------------------------------
+Total Queries: 10
+Correct: 3 (30.00%)
+Incorrect: 7
+Unknown: 0
+
+Prediction Distribution:
+  ✗ Walking_Downstairs          6 ( 60.0%)
+  ✓ Walking                     3 ( 30.0%)
+  ✗ Walking_Upstairs            1 ( 10.0%)
+
+Queries:
+  ✗ query_11_Walking.txt                → Walking_Downstairs
+  ✗ query_14_Walking.txt                → Walking_Downstairs
+  ✗ query_19_Walking.txt                → Walking_Downstairs
+  ✗ query_1_Walking.txt                 → Walking_Upstairs
+  ✓ query_23_Walking.txt                → Walking
+  ✗ query_25_Walking.txt                → Walking_Downstairs
+  ✓ query_26_Walking.txt                → Walking
+  ✗ query_29_Walking.txt                → Walking_Downstairs
+  ✓ query_6_Walking.txt                 → Walking
+  ✗ query_9_Walking.txt                 → Walking_Downstairs
+
+================================================================================
+
+Activity: Walking_Upstairs
+--------------------------------------------------------------------------------
+Total Queries: 10
+Correct: 2 (20.00%)
+Incorrect: 8
+Unknown: 0
+
+Prediction Distribution:
+  ✗ Walking_Downstairs          6 ( 60.0%)
+  ✓ Walking_Upstairs            2 ( 20.0%)
+  ✗ Walking                     2 ( 20.0%)
+
+Queries:
+  ✓ query_13_Walking_Upstairs.txt       → Walking_Upstairs
+  ✗ query_15_Walking_Upstairs.txt       → Walking_Downstairs
+  ✗ query_18_Walking_Upstairs.txt       → Walking_Downstairs
+  ✗ query_20_Walking_Upstairs.txt       → Walking_Downstairs
+  ✗ query_24_Walking_Upstairs.txt       → Walking_Downstairs
+  ✗ query_26_Walking_Upstairs.txt       → Walking_Downstairs
+  ✗ query_2_Walking_Upstairs.txt        → Walking
+  ✓ query_3_Walking_Upstairs.txt        → Walking_Upstairs
+  ✗ query_4_Walking_Upstairs.txt        → Walking
+  ✗ query_9_Walking_Upstairs.txt        → Walking_Downstairs
+
+================================================================================
+
+Activity: Walking_Downstairs
+--------------------------------------------------------------------------------
+Total Queries: 10
+Correct: 6 (60.00%)
+Incorrect: 4
+Unknown: 0
+
+Prediction Distribution:
+  ✓ Walking_Downstairs          6 ( 60.0%)
+  ✗ Walking_Upstairs            2 ( 20.0%)
+  ✗ Walking                     1 ( 10.0%)
+  ✗ Sitting                     1 ( 10.0%)
+
+Queries:
+  ✓ query_11_Walking_Downstairs.txt     → Walking_Downstairs
+  ✓ query_12_Walking_Downstairs.txt     → Walking_Downstairs
+  ✗ query_13_Walking_Downstairs.txt     → Walking_Upstairs
+  ✗ query_22_Walking_Downstairs.txt     → Walking
+  ✗ query_25_Walking_Downstairs.txt     → Sitting
+  ✓ query_26_Walking_Downstairs.txt     → Walking_Downstairs
+  ✗ query_3_Walking_Downstairs.txt      → Walking_Upstairs
+  ✓ query_4_Walking_Downstairs.txt      → Walking_Downstairs
+  ✓ query_5_Walking_Downstairs.txt      → Walking_Downstairs
+  ✓ query_7_Walking_Downstairs.txt      → Walking_Downstairs
+
+================================================================================
+
+Activity: Sitting
+--------------------------------------------------------------------------------
+Total Queries: 10
+Correct: 5 (50.00%)
+Incorrect: 5
+Unknown: 0
+
+Prediction Distribution:
+  ✓ Sitting                     5 ( 50.0%)
+  ✗ Walking_Upstairs            2 ( 20.0%)
+  ✗ Standing                    2 ( 20.0%)
+  ✗ Walking_Downstairs          1 ( 10.0%)
+
+Queries:
+  ✗ query_14_Sitting.txt                → Walking_Downstairs
+  ✗ query_17_Sitting.txt                → Walking_Upstairs
+  ✓ query_19_Sitting.txt                → Sitting
+  ✓ query_1_Sitting.txt                 → Sitting
+  ✗ query_20_Sitting.txt                → Standing
+  ✓ query_2_Sitting.txt                 → Sitting
+  ✓ query_30_Sitting.txt                → Sitting
+  ✗ query_3_Sitting.txt                 → Walking_Upstairs
+  ✗ query_7_Sitting.txt                 → Standing
+  ✓ query_8_Sitting.txt                 → Sitting
+
+================================================================================
+
+Activity: Standing
+--------------------------------------------------------------------------------
+Total Queries: 10
+Correct: 4 (40.00%)
+Incorrect: 6
+Unknown: 0
+
+Prediction Distribution:
+  ✓ Standing                    4 ( 40.0%)
+  ✗ Walking_Downstairs          2 ( 20.0%)
+  ✗ Walking_Upstairs            2 ( 20.0%)
+  ✗ Walking                     2 ( 20.0%)
+
+Queries:
+  ✗ query_14_Standing.txt               → Walking_Downstairs
+  ✓ query_15_Standing.txt               → Standing
+  ✗ query_18_Standing.txt               → Walking_Upstairs
+  ✗ query_1_Standing.txt                → Walking_Downstairs
+  ✗ query_21_Standing.txt               → Walking
+  ✗ query_23_Standing.txt               → Walking
+  ✗ query_27_Standing.txt               → Walking_Upstairs
+  ✓ query_29_Standing.txt               → Standing
+  ✓ query_7_Standing.txt                → Standing
+  ✓ query_8_Standing.txt                → Standing
+
+================================================================================
+
+Activity: Laying
+--------------------------------------------------------------------------------
+Total Queries: 10
+Correct: 6 (60.00%)
+Incorrect: 4
+Unknown: 0
+
+Prediction Distribution:
+  ✓ Laying                      6 ( 60.0%)
+  ✗ Walking_Upstairs            2 ( 20.0%)
+  ✗ Sitting                     1 ( 10.0%)
+  ✗ Walking_Downstairs          1 ( 10.0%)
+
+Queries:
+  ✓ query_18_Laying.txt                 → Laying
+  ✓ query_1_Laying.txt                  → Laying
+  ✓ query_21_Laying.txt                 → Laying
+  ✗ query_24_Laying.txt                 → Walking_Upstairs
+  ✓ query_25_Laying.txt                 → Laying
+  ✓ query_29_Laying.txt                 → Laying
+  ✗ query_4_Laying.txt                  → Walking_Upstairs
+  ✗ query_5_Laying.txt                  → Sitting
+  ✗ query_8_Laying.txt                  → Walking_Downstairs
+  ✓ query_9_Laying.txt                  → Laying
+
+================================================================================
+
+COMMON MISCLASSIFICATIONS
+================================================================================
+
+True Activity             Predicted As              Count     
+--------------------------------------------------------------------------------
+Walking                   Walking_Downstairs        6         
+Walking_Upstairs          Walking_Downstairs        6         
+Walking_Upstairs          Walking                   2         
+Walking_Downstairs        Walking_Upstairs          2         
+Sitting                   Walking_Upstairs          2         
+Sitting                   Standing                  2         
+Standing                  Walking_Downstairs        2         
+Standing                  Walking_Upstairs          2         
+Standing                  Walking                   2         
+Laying                    Walking_Upstairs          2         
+Walking                   Walking_Upstairs          1         
+Walking_Downstairs        Walking                   1         
+Walking_Downstairs        Sitting                   1         
+Sitting                   Walking_Downstairs        1         
+Laying                    Sitting                   1         
+Laying                    Walking_Downstairs        1         
+
+================================================================================
+
+BEST AND WORST PERFORMING ACTIVITIES
+================================================================================
+
+Best: Walking_Downstairs
+  Accuracy: 60.00%
+  Correct: 6/10
+
+Worst: Walking_Upstairs
+  Accuracy: 20.00%
+  Correct: 2/10
+
+Accuracy Gap: 40.00%
+
+================================================================================
+END OF PER-ACTIVITY ANALYSIS
+================================================================================

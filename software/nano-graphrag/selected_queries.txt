@@ -1,0 +1,65 @@
+Selected Queries for Evaluation
+Random Seed: 42
+Queries per Activity: 10
+================================================================================
+
+query_11_Walking.txt	Walking
+query_11_Walking_Downstairs.txt	Walking_Downstairs
+query_12_Walking_Downstairs.txt	Walking_Downstairs
+query_13_Walking_Downstairs.txt	Walking_Downstairs
+query_13_Walking_Upstairs.txt	Walking_Upstairs
+query_14_Sitting.txt	Sitting
+query_14_Standing.txt	Standing
+query_14_Walking.txt	Walking
+query_15_Standing.txt	Standing
+query_15_Walking_Upstairs.txt	Walking_Upstairs
+query_17_Sitting.txt	Sitting
+query_18_Laying.txt	Laying
+query_18_Standing.txt	Standing
+query_18_Walking_Upstairs.txt	Walking_Upstairs
+query_19_Sitting.txt	Sitting
+query_19_Walking.txt	Walking
+query_1_Laying.txt	Laying
+query_1_Sitting.txt	Sitting
+query_1_Standing.txt	Standing
+query_1_Walking.txt	Walking
+query_20_Sitting.txt	Sitting
+query_20_Walking_Upstairs.txt	Walking_Upstairs
+query_21_Laying.txt	Laying
+query_21_Standing.txt	Standing
+query_22_Walking_Downstairs.txt	Walking_Downstairs
+query_23_Standing.txt	Standing
+query_23_Walking.txt	Walking
+query_24_Laying.txt	Laying
+query_24_Walking_Upstairs.txt	Walking_Upstairs
+query_25_Laying.txt	Laying
+query_25_Walking.txt	Walking
+query_25_Walking_Downstairs.txt	Walking_Downstairs
+query_26_Walking.txt	Walking
+query_26_Walking_Downstairs.txt	Walking_Downstairs
+query_26_Walking_Upstairs.txt	Walking_Upstairs
+query_27_Standing.txt	Standing
+query_29_Laying.txt	Laying
+query_29_Standing.txt	Standing
+query_29_Walking.txt	Walking
+query_2_Sitting.txt	Sitting
+query_2_Walking_Upstairs.txt	Walking_Upstairs
+query_30_Sitting.txt	Sitting
+query_3_Sitting.txt	Sitting
+query_3_Walking_Downstairs.txt	Walking_Downstairs
+query_3_Walking_Upstairs.txt	Walking_Upstairs
+query_4_Laying.txt	Laying
+query_4_Walking_Downstairs.txt	Walking_Downstairs
+query_4_Walking_Upstairs.txt	Walking_Upstairs
+query_5_Laying.txt	Laying
+query_5_Walking_Downstairs.txt	Walking_Downstairs
+query_6_Walking.txt	Walking
+query_7_Sitting.txt	Sitting
+query_7_Standing.txt	Standing
+query_7_Walking_Downstairs.txt	Walking_Downstairs
+query_8_Laying.txt	Laying
+query_8_Sitting.txt	Sitting
+query_8_Standing.txt	Standing
+query_9_Laying.txt	Laying
+query_9_Walking.txt	Walking
+query_9_Walking_Upstairs.txt	Walking_Upstairs
