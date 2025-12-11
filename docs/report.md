@@ -18,7 +18,7 @@ Human Activity Recognition (HAR) has become increasingly important as wearable d
 
 Our objective is to investigate whether GraphRAG—a novel approach that constructs knowledge graphs with hierarchical community structures—can enhance both the accuracy and interpretability of HAR systems compared to standard LLM prompting. Rather than treating sensor data as isolated inputs to an opaque model, we aim to build explicit representations of entities (sensor signals, features, activities) and their relationships (correlations, temporal transitions, activity hierarchies). This structured approach should enable engineers to trace how classification decisions are made, identify failure modes, and implement targeted improvements.
 
-![GraphRAG](./assets/img/graphragsample.svg)  
+<img src="./assets/img/graphragsample.svg" alt="GraphRAG" style="width: 60%;"> 
 
 The motivation stems from a practical engineering need: when a HAR system misclassifies an activity, teams need to understand *why* the error occurred. Was a critical sensor feature ignored? Did the model fail to recognize a temporal pattern? GraphRAG's explicit knowledge graph structure promises to answer these questions by providing auditable reasoning paths from raw sensor data to final activity predictions.
 
