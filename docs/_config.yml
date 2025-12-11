@@ -18,3 +18,7 @@ kramdown:
 # Necessary for GitHub Pages
 plugins: 
 - jekyll-remote-theme
+
+relative_links:
+  enabled: true
+  collections: true
