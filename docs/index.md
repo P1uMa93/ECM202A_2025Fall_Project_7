@@ -5,8 +5,6 @@ title: "Structured Reasoning for Sensor Data: Human Activity Recognition with Gr
 
 # **Structured Reasoning for Sensor Data: Human Activity Recognition with GraphRAG**
 
-![Project Banner](./assets/img/banner-placeholder.png)  
-<sub>*(Optional: Replace with a conceptual figure or meaningful image.)*</sub>
 
 ---
 
@@ -25,8 +23,8 @@ Human Activity Recognition (HAR) from sensor data is critical for healthcare mon
 
 ## 📑 **Submissions**
 
-- [Midterm Checkpoint Slides](http://)  
-- [Final Presentation Slides](http://)
+- [Midterm Checkpoint Slides](https://docs.google.com/presentation/d/1c3EXHpXxh9IXyeyY5Pzx-bhPgkBEHvVMrJvxdMJCE4A/edit?usp=sharing)  
+- [Final Presentation Slides](https://docs.google.com/presentation/d/19L-qFI6tSFTV5oLMc5ZarpGE03NtE4wU9GQaJ2tG6og/edit?usp=sharing)
 - [Final Report](report)
 
 ---
