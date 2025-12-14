@@ -671,7 +671,7 @@ The visualization tool proved invaluable for understanding why certain activitie
 - **Dataset split**: [Specify train/test split used]
 - **Evaluation metrics**: Classification accuracy, per-activity F1-scores, query latency, failure rate
 - **Baselines**: [Specify comparison methods: standard RAG, direct LLM prompting, traditional ML]
-- **Hardware**: [Specify compute resources used]
+- **Hardware**: Initial testing conducted on NVIDIA RTX 4070 Super (16GB VRAM), but inference latency proved too slow for iterative development. Switched to remote NVIDIA RTX 5090 (32GB VRAM) for final experiments and evaluation, significantly improving throughput for Ollama model inference and Sentence Transformers embedding generation.
 
 ### **4.2 Activity Classification Accuracy**
 
@@ -783,6 +783,18 @@ Reasoning Path Analysis:
 
 ### **5.2 Challenges and Limitations**
 
+**Primary classification challenge: Walking vs. Walking_Upstairs**: The most persistent difficulty was distinguishing between WALKING and WALKING_UPSTAIRS, which exhibit highly similar sensor patterns. Both activities involve repetitive lower-body motion with comparable acceleration magnitudes and temporal rhythms. The subtle differences—slightly elevated vertical acceleration during upstairs climbing—are difficult for the system to capture reliably.
+
+In contrast, **WALKING_DOWNSTAIRS proved easier to classify** due to distinctly higher overall acceleration. Descending stairs generates faster motion with greater X-axis acceleration and elevated gravity component variations, creating clear separation from other walking variants. This finding highlights that not all activity pairs present equal classification difficulty—some are naturally more distinguishable based on sensor physics.
+
+The Walking/Walking_Upstairs confusion accounts for the majority of misclassifications in our system. While SITTING vs. STANDING also show similarity, the critical gravity orientation difference provides a clearer decision boundary when properly extracted as graph entities.
+
+**Resource constraints limited optimization**: Current accuracy levels, while demonstrating GraphRAG's feasibility for HAR, fall short of production deployment standards. This raised concerns about API cost justification—testing with expensive commercial LLMs (GPT-4, Claude) would require hundreds of dollars for comprehensive evaluation given our 180-query test set and need for multiple experimental runs. We prioritized cost-free local Ollama models for iterative development, accepting lower reasoning capability as a trade-off.
+
+**Time limitations of academic project scope**: This work was conducted within a single academic quarter (approximately 10 weeks), which significantly constrained the depth of optimization possible. Prompt engineering alone could easily consume months of systematic experimentation—testing different query formulations, context designs, few-shot examples, and chain-of-thought structures. Similarly, comprehensive model architecture exploration (testing various community detection depths, entity granularities, embedding strategies) requires extensive computational resources and time.
+
+The limited timeframe meant we could validate the core concept—that GraphRAG can be applied to HAR with interpretable results—but could not fully optimize the system for competitive accuracy. This represents untapped potential rather than fundamental limitations of the approach.
+
 **Global search failure rate unacceptably high**: The ~15% failure rate ("Sorry, I'm not able to provide an answer") for global mode on HAR queries represents a critical limitation. We attribute this to:
 1. **Abstraction mismatch**: Community summaries at root levels (C0, C1) abstracted away distinguishing details needed for activity classification
 2. **Insufficient context**: Top-K community selection (K=512 in nano-graphrag) sometimes missed critical communities containing activity-specific patterns
@@ -794,8 +806,6 @@ This suggests GraphRAG's global search, while powerful for text summarization, r
 - Cheaper models for entity extraction (keep expensive models for relationship reasoning)
 - Incremental indexing (update graph as new data arrives rather than full reindexing)
 - Embedding-based entity clustering before LLM processing (reduce redundant extractions)
-
-**SITTING vs. STANDING confusion persisted**: Like all HAR systems, our GraphRAG approach struggled to distinguish these activities from waist-mounted sensor perspective. The reasoning paths revealed why—both activities exhibit similar sensor patterns (low acceleration, static gravity vector) with primary difference in subtle gravity orientation. This limitation is inherent to sensor placement, not GraphRAG architecture. Alternative sensor configurations (ankle-mounted, multi-device) would likely resolve this.
 
 **Temporal dynamics require future work**: While we captured some temporal patterns through natural language descriptions ("rhythmic acceleration pattern at 1.8 Hz"), the knowledge graph's static structure doesn't natively represent temporal transitions (SITTING → STANDING) or duration-dependent patterns (brief motion vs. sustained walking). Future work should explore temporal graph extensions or event-based entity modeling.
 
@@ -817,19 +827,38 @@ Deep learning approaches (RNNs, CNNs) typically match or slightly exceed SVM acc
 
 ### **5.5 Future Directions**
 
+**Feature engineering and selection experiments**: Current implementation uses only 6 of 561 available UCI HAR features to manage LLM context limits. Future work should systematically explore feature set expansion:
+- **Increased feature coverage**: Test with 20-50 features to determine if additional information improves Walking/Walking_Upstairs discrimination while remaining within practical context windows
+- **Robustness to irrelevant features**: Deliberately introduce noisy or unrelated features to assess GraphRAG's ability to filter signal from noise through entity extraction. Can the system automatically identify which features are activity-discriminative and down-weight irrelevant inputs?
+- **Performance-complexity trade-offs**: Characterize the accuracy-vs-tokens curve to identify optimal feature set sizes for different deployment scenarios
+
+**Systematic prompt and model optimization**: The one-quarter project timeline permitted only limited prompt engineering. Comprehensive optimization requires:
+- **A/B testing of query formulations**: Test minimal context ("Classify this sensor data") vs. rich descriptions (current approach) vs. few-shot examples with reasoning traces
+- **Context design experiments**: Vary the level of domain knowledge provided (feature descriptions, physics of motion, activity definitions) to determine optimal background information
+- **Model scaling**: Progress from gpt-oss models to state-of-the-art commercial LLMs (GPT-4o, Claude Opus, Gemini 2.0) once baseline accuracy justifies API costs. Quantify the accuracy gain vs. cost increase to establish deployment viability
+- **Hint ablation studies**: Remove explicit activity descriptions and domain knowledge to test zero-shot reasoning capability. This would reveal whether the system truly understands sensor-activity relationships or relies on provided hints
+
+**Robustness and generalization beyond accuracy**: Production HAR systems must handle real-world deployment challenges beyond clean test set performance:
+- **Adversarial robustness**: Introduce sensor noise, missing data, and outlier values to test graceful degradation. Does GraphRAG's interpretable reasoning help identify when inputs are corrupted?
+- **Cross-dataset validation**: Test on PAMAP2 (chest-mounted sensors), WISDM (smartphone-based), and Opportunity (multi-modal) datasets without retraining to demonstrate generalization across sensor configurations and activity types
+- **Subject variability**: Evaluate performance across demographic groups (age, fitness level, gait patterns) to identify potential biases
+- **Real-time streaming scenarios**: Adapt for continuous sensor data where activities unfold without pre-segmented windows. Current batch approach requires known boundaries; streaming would need online graph updates
+
+**Scenario diversity and ablation testing**: Rather than optimizing solely for maximum accuracy, explore system behavior under diverse conditions:
+- **Feature modality ablations**: Test with only time-domain features vs. only frequency-domain features vs. combined. Which feature types contribute most to graph structure quality?
+- **Community detection depth**: Compare C0-only (coarse communities) vs. C0-C3 (full hierarchy) to determine if hierarchical abstraction truly improves reasoning or introduces unnecessary complexity
+- **Query complexity variations**: Test simple entity-specific queries ("What is high Z-acceleration?") vs. multi-hop reasoning ("What activity combines high Z-acceleration with forward motion?") to understand reasoning chain depth limits
+- **Graph structure analysis**: Visualize extracted entity relationships to validate that graph topology aligns with domain knowledge (e.g., do acceleration features cluster together? do activities form distinct communities?)
+
+**Key philosophy: Robustness matters as much as accuracy**. A production HAR system achieving 95% on clean test data but failing catastrophically on noisy real-world inputs is less valuable than an 85% accurate system with graceful degradation and predictable failure modes. GraphRAG's interpretable reasoning paths position it well for robustness research—failures can be traced to specific missing entities or incorrect relationships rather than opaque model weights.
+
 **Temporal graph extensions**: Incorporate temporal edges representing activity transitions and duration dependencies. Event-based entity modeling could capture "acceleration onset" as distinct from "sustained acceleration," enabling better temporal reasoning.
 
 **Hybrid query modes**: Develop adaptive system that combines global context (high-level activity taxonomy) with local details (specific sensor patterns) in a single query. This could address global mode's abstraction issues while maintaining corpus-wide awareness.
 
-**Cross-dataset generalization**: Validate on WISDM (smartphone-based), PAMAP2 (chest-mounted), and Opportunity (multi-modal) datasets to demonstrate GraphRAG's robustness across sensor configurations and activity types. Investigate whether knowledge graphs can be transferred across datasets with minimal retraining.
-
-**Active learning for entity refinement**: Implement feedback loop where misclassifications trigger targeted entity extraction refinement. When SITTING/STANDING errors occur, prompt engineer to add entities specifically capturing gravity vector orientation. This would enable continuous improvement through deployment experience.
-
 **Personalized activity graphs**: Explore whether individual users benefit from personalized knowledge graphs capturing their unique activity patterns. GraphRAG's incremental insert capability could enable per-user adaptation while maintaining shared base graph for common patterns.
 
-**Adversarial robustness**: Test GraphRAG-HAR against adversarial sensor perturbations. Can reasoning path transparency help identify when inputs are adversarially manipulated? Does graph structure provide robustness compared to end-to-end neural approaches?
-
-**Real-time streaming**: Adapt GraphRAG for streaming sensor data where activities unfold continuously. Current batch-based approach requires pre-segmented windows; streaming would need online graph updates and continuous classification.
+**Extended validation and real-world deployment**: Test GraphRAG-HAR in applied settings such as healthcare monitoring (fall detection, gait analysis), workplace safety (ergonomic risk assessment), and smart home automation (context-aware assistance). Measure not just accuracy but user trust, clinical utility, and debugging efficiency in production environments.
 
 ### **5.6 Broader Impact**
 
@@ -843,16 +872,41 @@ The interpretability advantages proved more valuable than marginal accuracy impr
 
 ### **5.7 Conclusions**
 
-This project successfully demonstrated that GraphRAG can enhance Human Activity Recognition through explicit knowledge graph construction and interpretable reasoning paths. Our key contributions include:
+This project successfully demonstrates that GraphRAG can transform Human Activity Recognition from a black-box classification problem into an interpretable reasoning task with auditable decision paths. Our work establishes a new paradigm where sensor-based activity recognition systems provide not just predictions, but transparent explanations grounded in structured knowledge graphs.
 
-1. **First application of GraphRAG to HAR**: Bridged graph-augmented retrieval with sensor-based activity recognition
-2. **Query mode analysis**: Showed local search outperforms global for classification tasks, contradicting text summarization patterns
-3. **Interpretability framework**: Developed traceable reasoning path methodology enabling systematic debugging
-4. **Implementation guidance**: Provided nano-graphrag configuration, natural language encoding strategies, and design pattern recommendations for sensor-based GraphRAG
+**Core achievements**:
 
-While global search mode showed concerning failure rates (15%) and computational costs remain significant, local search demonstrated robust performance with substantial interpretability advantages over black-box approaches. The explicit modeling of entities and relationships transformed HAR from opaque prediction to auditable reasoning—a critical requirement for deploying AI in safety-critical and regulated domains.
+1. **First application of GraphRAG to sensor-based HAR**: We bridged Microsoft's graph-augmented retrieval paradigm with sensor data analysis, demonstrating that knowledge graph construction and hierarchical community detection can be successfully applied beyond text summarization to numerical time-series classification.
 
-Future work should extend GraphRAG to temporal dynamics, develop hybrid query modes, and validate cross-dataset generalization. The convergence of knowledge graphs with LLM reasoning represents a promising direction for building AI systems that are both accurate and understandable—essential for realizing the potential of ubiquitous computing in healthcare, smart environments, and human-centered AI.
+2. **Interpretability through structured reasoning**: GraphRAG's primary strength lies in its ability to trace predictions through explicit entity-relationship paths. When the system classifies an activity as WALKING_UPSTAIRS, it explains WHY—citing high Z-axis acceleration variance, elevated jerk magnitude, and upright posture patterns. This transparency enables systematic debugging: engineers can identify which entities were retrieved, which relationships influenced the decision, and where the reasoning chain broke down in error cases.
+
+3. **Natural language encoding strategy**: Our approach to converting numerical sensor features into descriptive text with statistical context (mean, std, percentiles, range) proved foundational to the system's success. This encoding enabled effective entity extraction ("high variance," "negative Z-gravity") and relationship identification ("acceleration correlates with jerk"), bridging the gap between LLMs' linguistic capabilities and sensor data's numerical nature.
+
+4. **Query mode analysis reveals task-structure dependency**: Contrary to Microsoft's text summarization results where global search excelled, we found local search significantly outperforms for HAR classification tasks. This insight—that query mode selection should match task structure (discrete classification vs. holistic summarization)—has broader implications for applying GraphRAG across domains.
+
+**Why GraphRAG matters for HAR and beyond**:
+
+**Transparency for safety-critical applications**: Healthcare monitoring, fall detection, and elderly care systems require explainable decisions that clinicians and caregivers can validate. A prediction of "Patient shows reduced walking speed variability → potential mobility decline" is actionable; a black-box "Abnormal activity detected" is not. GraphRAG's reasoning paths provide the interpretability essential for medical and safety applications.
+
+**Systematic debugging and improvement**: When traditional ML models fail, engineers resort to speculative feature engineering. When GraphRAG fails, the reasoning path reveals exactly what went wrong—missing entities (e.g., gravity orientation), incorrect relationships (e.g., confusing acceleration types), or abstraction issues (e.g., community summaries too coarse). This enables targeted fixes rather than trial-and-error tuning.
+
+**Auditability for regulated domains**: Financial services, insurance, and legal applications require algorithmic decisions to be auditable. GraphRAG's knowledge graph provides a persistent record of how classifications were made—which evidence was considered, which relationships were deemed relevant, which entities drove the final prediction. This auditability addresses a fundamental barrier to AI deployment in regulated industries.
+
+**Foundation for knowledge transfer and few-shot learning**: The explicit knowledge graph structure opens pathways for transfer learning beyond traditional approaches. Activity definitions, sensor-feature relationships, and motion physics could be shared across deployments, reducing labeled data requirements. A graph built for smartwatch-based HAR could potentially inform smartphone-based systems through relationship reuse.
+
+**Research impact**:
+
+This work extends GraphRAG's applicability from text-based knowledge tasks to structured sensor analytics, demonstrating that graph-augmented reasoning is not domain-specific but rather a general paradigm for combining symbolic knowledge with neural language understanding. The key innovations—numerical-to-text encoding, task-aligned query mode selection, and interpretable reasoning path methodology—provide reusable patterns for other sensor domains including health monitoring, industrial IoT, environmental sensing, and autonomous systems.
+
+**Promising foundation with untapped potential**:
+
+While current accuracy levels indicate need for further optimization (improved prompts, larger models, extended feature sets), the feasibility and interpretability advantages are clearly established. Given the time constraints of a single academic quarter, the system demonstrates proof-of-concept rather than production-ready performance. The path forward is clear: systematic prompt engineering, commercial API integration for enhanced reasoning, feature engineering for better activity discrimination, and robustness testing across diverse deployment scenarios.
+
+**The paradigm shift**:
+
+GraphRAG represents a fundamental shift from **"accurate but opaque"** to **"accurate AND interpretable"** AI systems. For HAR and sensor-based recognition more broadly, this means moving from models we can't understand to systems we can debug, from predictions we must accept to reasoning we can validate, from black boxes to auditable intelligence.
+
+This is not merely a technical improvement—it's a necessary evolution for deploying AI in human-centered applications where trust, safety, and accountability matter as much as raw performance metrics. GraphRAG-based HAR demonstrates that we need not sacrifice interpretability for capability; structured reasoning can deliver both.
 
 ---
 
