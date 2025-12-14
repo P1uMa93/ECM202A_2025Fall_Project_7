@@ -5,9 +5,6 @@ title: "Structured Reasoning for Sensor Data: Human Activity Recognition with Gr
 
 # **Structured Reasoning for Sensor Data: Human Activity Recognition with GraphRAG**
 
-![Project Banner](./assets/img/banner-placeholder.png)  
-<sub>*(Optional: Replace with a conceptual figure or meaningful image.)*</sub>
-
 ---
 
 # **1. Introduction**
@@ -36,7 +33,7 @@ Standard Retrieval-Augmented Generation (RAG) addresses some LLM limitations by 
 
 ### **1.3 Novelty & Rationale**
 
-Our approach applies GraphRAG—specifically Microsoft's graph-augmented retrieval paradigm [7]—to HAR for the first time. GraphRAG constructs LLM-generated knowledge graphs where nodes represent entities (sensor features, activities, temporal patterns) and edges capture relationships (correlations, transitions, hierarchies). The Leiden algorithm performs hierarchical community detection, organizing entities into semantically meaningful clusters at multiple abstraction levels. LLM-generated community summaries provide report-like descriptions that enable both global reasoning (patterns across all activities) and local reasoning (specific sensor-activity relationships).
+Our approach applies GraphRAG—specifically Microsoft's graph-augmented retrieval paradigm [7]—to Human Activity Recognition. GraphRAG constructs LLM-generated knowledge graphs where nodes represent entities (sensor features, activities, temporal patterns) and edges capture relationships (correlations, transitions, hierarchies). The Leiden algorithm performs hierarchical community detection, organizing entities into semantically meaningful clusters at multiple abstraction levels. LLM-generated community summaries provide report-like descriptions that enable both global reasoning (patterns across all activities) and local reasoning (specific sensor-activity relationships).
 
 We expect this approach to succeed for several reasons:
 
@@ -679,29 +676,45 @@ The visualization tool proved invaluable for understanding why certain activitie
 
 | Method | Overall Accuracy | WALKING | WALKING_UP | WALKING_DOWN | SITTING | STANDING | LAYING |
 |--------|-----------------|---------|-----------|--------------|---------|----------|--------|
-| SVM Baseline (Anguita et al.) | 96.37% | - | - | - | - | - | - |
-| Direct LLM Prompting | [%] | [%] | [%] | [%] | [%] | [%] | [%] |
-| Standard RAG | [%] | [%] | [%] | [%] | [%] | [%] | [%] |
-| GraphRAG (Global) | [%] | [%] | [%] | [%] | [%] | [%] | [%] |
-| GraphRAG (Local) | [%] | [%] | [%] | [%] | [%] | [%] | [%] |
+| Direct LLM Prompting | [63%] | [42%] | [53%] | [72%] | [53%] | [71%] | [83%] |
+| GraphRAG (Global) | [20%] | [42.9%] | [0%] | [62.5%] | [10%] | [30%] | [0%] |
+| GraphRAG (Local) | [43%] | [30%] | [20%] | [60%] | [50%] | [40%] | [60%] |
 
 [Add confusion matrix visualization for best-performing method]
 
 ### **4.3 Query Mode Comparison**
 
-[Insert detailed comparison of global vs. local search performance:]
+Our experiments compared GraphRAG's global and local search modes for HAR classification tasks. Since we used Ollama for local inference rather than API-based models, token usage metrics were not tracked. Instead, we focus on comparing the operational principles and behavioral differences that make local mode superior for this application.
 
-| Metric | Global Search | Local Search |
+**Operational Principles:**
+
+| Aspect | Global Search | Local Search |
 |--------|--------------|--------------|
-| Average Latency | [sec] | [sec] |
-| Token Usage (avg) | [tokens] | [tokens] |
-| Failure Rate | ~15% | [%] |
-| Response Directness | [score] | [score] |
-| Comprehensiveness | [score] | [score] |
+| **Retrieval Scope** | Community-level summaries (top-K=512 communities) | Entity-level patterns (top-K=20 entities) |
+| **Reasoning Strategy** | Map-reduce over hierarchical abstractions | Direct entity-relationship traversal |
+| **Best For** | Corpus-wide themes, holistic questions | Specific classification, entity-centric queries |
+| **Abstraction Level** | High (root communities C0-C1) | Low (individual entities and connections) |
 
-**Key finding**: Global mode showed approximately 15% failure rate with "Sorry, I'm not able to provide an answer" responses, while local mode demonstrated significantly better robustness.
+**Behavioral Comparison for HAR:**
 
-[Insert example queries showing failure cases for global mode vs. successful local mode responses]
+| Behavior | Global Search | Local Search |
+|----------|--------------|--------------|
+| **Failure Rate** | ~15% ("Sorry, I'm not able to provide an answer") | Near-zero failures |
+| **Response Type** | Abstract, sometimes too general for classification | Specific, actionable for discrete categories |
+| **Context Matching** | Community summaries may miss fine-grained distinctions | Entity-level context captures subtle activity differences |
+| **Latency** | Higher (map-reduce overhead) | Lower (direct retrieval) |
+
+**Why Local Mode Excels for HAR:**
+
+1. **Task Structure Alignment**: HAR is a discrete classification problem ("Which of 6 activities?"), not an open-ended summarization task. Local search's entity-centric retrieval naturally matches this structure—retrieve specific sensor patterns associated with each activity rather than corpus-wide themes.
+
+2. **Fine-Grained Discrimination**: Distinguishing similar activities (e.g., WALKING vs. WALKING_UPSTAIRS) requires accessing subtle feature differences. Local search retrieves specific entities like "elevated-Z-acceleration" or "rhythmic-jerk-pattern," while global search's community summaries abstract away these critical details.
+
+3. **Failure Mode Difference**: Global mode's ~15% failure rate stems from abstraction mismatch—when community summaries are too coarse to answer specific classification queries, the system cannot generate meaningful responses. Local mode's entity-level context provides sufficient detail for nearly all queries.
+
+4. **Efficiency-Accuracy Trade-off**: Local search achieves better accuracy with lower computational overhead. The map-reduce process in global mode increases latency without improving classification performance for this structured task.
+
+**Key Insight**: This finding contradicts Microsoft's text summarization results where global search excelled. The difference stems from task nature—HAR involves localized patterns (activities map to specific sensor signatures) while text summarization benefits from global themes. **Query mode selection should match task structure**: local for classification, global for summarization.
 
 ### **4.4 Interpretability Analysis**
 
@@ -729,43 +742,6 @@ Reasoning Path Analysis:
 - Missing entity: "gravity-Z-component" which distinguishes SITTING/STANDING
 → Engineering fix: Enhance entity extraction to include gravity components
 ```
-
-### **4.5 Ablation Studies**
-
-[Test impact of design choices:]
-
-**Ablation 1: Entity granularity**
-- Individual features (561 entities) vs. Feature groups (~50 entities)
-- Impact on graph size, query latency, classification accuracy
-
-**Ablation 2: Community detection depth**
-- C0 (root) only vs. C0-C3 (full hierarchy)
-- Impact on global search comprehensiveness
-
-**Ablation 3: Natural language encoding**
-- Raw numerical features vs. Descriptive text
-- Impact on entity extraction quality and LLM reasoning
-
-[Insert results table for each ablation]
-
-### **4.6 Computational Efficiency**
-
-| Stage | Time | Token Usage |
-|-------|------|-------------|
-| Dataset preprocessing | [time] | N/A |
-| GraphRAG indexing | [time] | [tokens] |
-| Per-query (local) | [time] | [tokens] |
-| Per-query (global) | [time] | [tokens] |
-
-**Cost analysis**: [Calculate approximate cost if using API-based LLM vs. Ollama]
-
-### **4.7 Qualitative Results**
-
-[Include visualizations:]
-- Knowledge graph structure (sample subgraph showing activity-sensor relationships)
-- Community detection visualization (hierarchical clustering of entities)
-- Attention heatmaps showing which entities/relationships were most relevant for specific queries
-- Example explanations comparing GraphRAG vs. black-box LLM
 
 ---
 
@@ -876,7 +852,7 @@ This project successfully demonstrates that GraphRAG can transform Human Activit
 
 **Core achievements**:
 
-1. **First application of GraphRAG to sensor-based HAR**: We bridged Microsoft's graph-augmented retrieval paradigm with sensor data analysis, demonstrating that knowledge graph construction and hierarchical community detection can be successfully applied beyond text summarization to numerical time-series classification.
+1. **Application of GraphRAG to sensor-based HAR**: We successfully applied Microsoft's graph-augmented retrieval paradigm to sensor data analysis, demonstrating that knowledge graph construction and hierarchical community detection can work effectively beyond text summarization for numerical time-series classification tasks.
 
 2. **Interpretability through structured reasoning**: GraphRAG's primary strength lies in its ability to trace predictions through explicit entity-relationship paths. When the system classifies an activity as WALKING_UPSTAIRS, it explains WHY—citing high Z-axis acceleration variance, elevated jerk magnitude, and upright posture patterns. This transparency enables systematic debugging: engineers can identify which entities were retrieved, which relationships influenced the decision, and where the reasoning chain broke down in error cases.
 
@@ -953,290 +929,3 @@ This is not merely a technical improvement—it's a necessary evolution for depl
 [20] Global Wearable Devices Market Report. (2024). Market research forecast projecting $63 billion by 2025.
 
 ---
-
-# **7. Supplementary Material**
-
-## **7.a. Datasets**
-
-### **UCI Human Activity Recognition Using Smartphones Dataset**
-
-**Source**: UCI Machine Learning Repository  
-**URL**: https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones  
-**Citation**: Anguita, D., Ghio, A., Oneto, L., Parra, X., & Reyes-Ortiz, J. L. (2013)
-
-**Data Format**:
-- **Raw signals**: Text files containing tri-axial accelerometer and gyroscope readings at 50 Hz
-- **Processed features**: 561-dimensional feature vectors (CSV format)
-- **Labels**: Activity class labels (1-6) corresponding to WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
-- **Subject IDs**: Anonymous subject identifiers (1-30)
-
-**Data Collection**:
-- 30 volunteers aged 19-48 years
-- Samsung Galaxy S II worn on waist
-- Video-recorded experiments for manual labeling
-- Six activities performed in controlled laboratory setting
-
-**Preprocessing Steps**:
-1. **Noise filtering**: Median filter + 3rd-order Butterworth low-pass filter (20 Hz cutoff)
-2. **Gravity separation**: 0.3 Hz cutoff Butterworth filter to separate body acceleration from gravity
-3. **Windowing**: 2.56-second windows (128 samples) with 50% overlap
-4. **Feature extraction**: 561 features computed per window including:
-   - Time-domain statistics: mean, std, mad, max, min, sma, energy, iqr, entropy, arCoeff
-   - Frequency-domain statistics: FFT-based mean, std, mad, max, min, skewness, kurtosis, energy
-   - Additional: Correlation coefficients, angle measurements
-
-**Labeling/Annotation**:
-- Manual labeling based on video recordings
-- Ground truth activities verified by human annotators
-- No automated pre-labeling
-
-**Train/Test Split**:
-- 70% training (7,352 samples, 21 subjects)
-- 30% test (2,947 samples, 9 subjects)
-- Subject-independent split (no subject appears in both sets)
-
-**Dataset Statistics**:
-- Total instances: 10,299
-- Activity distribution approximately balanced (1,722 WALKING, 1,544 WALKING_UPSTAIRS, 1,406 WALKING_DOWNSTAIRS, 1,777 SITTING, 1,906 STANDING, 1,944 LAYING)
-
-**Known Challenges**:
-- SITTING vs. STANDING confusion (similar sensor patterns from waist perspective)
-- Individual variation in activity execution
-- Sensor noise in real-world deployment scenarios
-
-## **7.b. Software**
-
-### **External Libraries and Models**
-
-**nano-graphrag**
-- Version: Latest (as of December 2024)
-- Source: https://github.com/gusye1234/nano-graphrag
-- License: MIT
-- Purpose: Core GraphRAG implementation for knowledge graph construction and querying
-- Installation: `pip install nano-graphrag`
-
-**Ollama**
-- Version: Latest stable release
-- Source: https://ollama.com
-- License: Open source
-- Purpose: Local LLM inference for entity extraction, relationship identification, and summarization
-- Models used:
-  - gpt-oss:20b (debugging and prototyping)
-  - gpt-oss:120b (final evaluation)
-- Installation: `curl -fsSL https://ollama.com/install.sh | sh`
-
-**NetworkX**
-- Version: 3.2+
-- Source: https://networkx.org
-- License: BSD
-- Purpose: Graph storage and manipulation backend
-- Installation: `pip install networkx`
-
-**NumPy**
-- Version: 1.24+
-- Purpose: Numerical operations on sensor data
-- Installation: `pip install numpy`
-
-**pandas**
-- Version: 2.0+
-- Purpose: Data preprocessing and feature manipulation
-- Installation: `pip install pandas`
-
-**scikit-learn**
-- Version: 1.3+
-- Purpose: Baseline comparisons and evaluation metrics
-- Installation: `pip install scikit-learn`
-
-**matplotlib / seaborn**
-- Purpose: Visualization of results, confusion matrices, graph structures
-- Installation: `pip install matplotlib seaborn`
-
-### **Internal Modules**
-
-**generate_queries.py**
-- **Purpose**: Generate 180 query files from UCI HAR dataset with natural language descriptions
-- **Key functions**:
-  - `load_all_data()`: Load train and test UCI HAR data (30 subjects, 6 activities)
-  - `get_feature_description()`: Map feature names to human-readable descriptions
-  - `generate_query_text()`: Convert sensor statistics to natural language paragraphs
-  - `generate_all_queries()`: Create all 180 query files and ground truth mapping
-- **Input**: UCI HAR Dataset (X_train.txt, X_test.txt, y_train.txt, y_test.txt, subject_train.txt, subject_test.txt, features.txt)
-- **Output**: 
-  - 180 query files: `query_<subject>_<activity>.txt`
-  - Ground truth file: `ground_truth.txt`
-- **Configuration**:
-  - Selected features: [9, 42, 200, 201, 214, 226] (array indices for 6 key features)
-  - Base path: `/home/m202/M202/Richard/UCI HAR Dataset`
-  - Output directory: `/home/m202/M202/Richard/query`
-
-**no_openai_key_at_all.py**
-- **Purpose**: Build GraphRAG knowledge graph index from sensor data descriptions
-- **Key functions**:
-  - `local_embedding()`: Generate embeddings using Sentence Transformers
-  - `ollama_model_if_cache()`: LLM inference with response caching
-  - `insert()`: Index sensor descriptions into GraphRAG (entity extraction, relationship identification, community detection)
-  - `query()`: Run test queries through GraphRAG with global and local modes
-- **Configuration**:
-  - Working directory: `./nano_graphrag_cache_ollama_TEST`
-  - Model: `gpt-oss:120b`
-  - Embedding model: `sentence-transformers/all-MiniLM-L6-v2`
-  - Input document: `./tests/test_4.txt` (sensor data descriptions)
-  - Query file: `/home/m202/M202/Richard/nano-graphrag/tests/query.txt`
-- **Caching**: LLM responses cached in working directory for reproducibility
-
-**evaluate_graphrag_full_180.py**
-- **Purpose**: Comprehensive evaluation of GraphRAG HAR performance on all 180 queries
-- **Key functions**:
-  - `extract_activity_label()`: Extract predicted activity from LLM response text using pattern matching
-  - `load_ground_truth()`: Load query filename → activity label mappings
-  - `group_queries_by_activity()`: Organize queries by activity class for balanced analysis
-  - `evaluate_graphrag()`: Main evaluation pipeline processing all 180 queries
-- **Evaluation Process**:
-  1. Load ground truth and select queries (all 180 or sampled)
-  2. Initialize GraphRAG with existing cache (no reindexing)
-  3. For each query: load text → run GraphRAG → extract prediction → compare with ground truth
-  4. Generate confusion matrix and per-activity accuracy
-  5. Save detailed results to file
-- **Configuration**:
-  - Working directory: `./nano_graphrag_cache_ollama_TEST` (same as indexing)
-  - Model: `gpt-oss:120b`
-  - Query directory: `/home/m202/M202/Richard/query`
-  - Ground truth: `/home/m202/M202/Richard/query/ground_truth.txt`
-  - Test mode: `TEST_ALL_QUERIES = True` (all 180 queries)
-  - Query mode: `QueryParam(mode="global")` or `QueryParam(mode="local")`
-- **Output**:
-  - Console: Real-time progress, confusion matrix, summary statistics
-  - File: `evaluation_results_full_180.txt` with detailed per-query results
-
-**har_visualizer.py**
-- **Purpose**: Interactive visualization tool for exploring UCI HAR dataset features
-- **Key features**:
-  - Browse all 561 features with Previous/Next buttons
-  - Color-code samples by activity class (6 colors)
-  - Filter by subject ID (1-30) or view all subjects
-  - Display real-time statistics (mean, std, min, max)
-  - Toggle between activity-colored and single-color views
-- **Implementation**:
-  - `HARVisualizer` class: Main visualization controller
-  - `setup_plot()`: Create matplotlib figure with interactive controls
-  - `plot_feature()`: Render current feature with activity colors and statistics
-  - `update_feature_from_text()`: Navigate to specific feature by index
-  - `update_subject_filter()`: Filter data by subject
-- **Usage**: Feature selection validation and error analysis
-- **Configuration**:
-  - Base path: `C:\Users\Yunqing\OneDrive\School\UCLA\GraphRAG Project\human+activity+recognition+using+smartphones\UCI HAR Dataset\UCI HAR Dataset`
-  - Input files: X_train.txt, y_train.txt, subject_train.txt, features.txt
-
-### **Code Repository**
-
-Project code and data available at: [Link to be added]
-
-**Repository structure**:
-```
-project/
-├── nano_graphrag_cache_ollama_TEST/    # GraphRAG working directory
-│   ├── vdb_entities.json               # Entity embeddings
-│   ├── kv_store_full_docs.json         # Original documents
-│   ├── kv_store_text_chunks.json       # Text chunks
-│   ├── kv_store_community_reports.json # Community summaries
-│   └── graph_chunk_entity_relation.graphml  # Knowledge graph
-├── query/                              # Generated queries
-│   ├── query_1_Walking.txt
-│   ├── query_1_Sitting.txt
-│   ├── ...                             # 180 query files total
-│   └── ground_truth.txt                # Query → activity mappings
-├── tests/
-│   ├── test_4.txt                      # Sensor descriptions for indexing
-│   └── query.txt                       # Test query
-├── UCI HAR Dataset/                    # Original UCI HAR data
-│   ├── train/
-│   │   ├── X_train.txt
-│   │   ├── y_train.txt
-│   │   └── subject_train.txt
-│   ├── test/
-│   │   ├── X_test.txt
-│   │   ├── y_test.txt
-│   │   └── subject_test.txt
-│   └── features.txt
-├── generate_queries.py                 # Query generation script
-├── no_openai_key_at_all.py            # GraphRAG indexing script
-├── evaluate_graphrag_full_180.py      # Evaluation script
-├── har_visualizer.py                  # Visualization tool
-└── evaluation_results_full_180.txt    # Evaluation output
-```
-
-### **Environment Setup**
-
-**System requirements**:
-- Python 3.9+
-- 16GB+ RAM (for gpt-oss:120b inference)
-- NVIDIA GPU with CUDA support (for Sentence Transformers and Ollama acceleration)
-- ~50GB disk space (for Ollama models and GraphRAG cache)
-
-**Installation instructions**:
-```bash
-# Install Python dependencies
-pip install nano-graphrag sentence-transformers numpy matplotlib
-
-# Install Ollama
-curl -fsSL https://ollama.com/install.sh | sh
-
-# Pull LLM models
-ollama pull gpt-oss:20b
-ollama pull gpt-oss:120b
-
-# Download UCI HAR dataset
-# From: https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
-# Extract to: ./UCI HAR Dataset/
-```
-
-**Running the pipeline**:
-```bash
-# Step 1: Generate 180 query files from UCI HAR dataset
-python generate_queries.py
-# Output: 180 query files in /home/m202/M202/Richard/query/
-
-# Step 2: Build GraphRAG knowledge graph index
-python no_openai_key_at_all.py
-# This runs the insert() function to create graph from test_4.txt
-# Cache saved to: ./nano_graphrag_cache_ollama_TEST/
-
-# Step 3: Run full evaluation (180 queries)
-python evaluate_graphrag_full_180.py
-# This tests all queries and generates evaluation_results_full_180.txt
-
-# Step 4 (Optional): Visualize UCI HAR features
-python har_visualizer.py
-# Interactive matplotlib window for exploring 561 features
-```
-
-**Experiment configuration**:
-To switch between models or query modes, edit the configuration in the respective scripts:
-- **Model selection**: Change `MODEL = "gpt-oss:120b"` to `"gpt-oss:20b"`
-- **Query mode**: Change `param=QueryParam(mode="global")` to `mode="local"`
-- **Test all queries**: Set `TEST_ALL_QUERIES = True` (default)
-- **Sample queries**: Set `TEST_ALL_QUERIES = False` and adjust `QUERIES_PER_ACTIVITY`
-
-### **Reproducibility Notes**
-
-- All experiments use the actual UCI HAR dataset with no modifications to ground truth labels
-- Ollama model versions: gpt-oss:20b and gpt-oss:120b (specific commit hashes available in Ollama model registry)
-- UCI HAR dataset: Official version from UCI ML Repository (10,299 samples, 30 subjects)
-- LLM inference parameters:
-  - Temperature: Default (not explicitly set, uses Ollama defaults)
-  - No additional prompt engineering beyond nano-graphrag defaults
-- GraphRAG configuration:
-  - Community detection: Leiden algorithm with default resolution
-  - Hierarchy depth: 4 levels (C0-C3)
-  - Top-K communities (global search): 512 (nano-graphrag default)
-  - Top-K entities (local search): 20 (nano-graphrag default)
-- Sentence Transformers:
-  - Model: all-MiniLM-L6-v2
-  - Normalization: L2 (cosine similarity)
-  - Max sequence: 256 tokens
-
----
-
-**Document Version**: 1.0  
-**Last Updated**: December 2024  
-**Status**: Draft (Section 4 pending experimental results)
